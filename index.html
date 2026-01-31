@@ -90,8 +90,9 @@
   .banner .big-emoji { font-size: 2.5rem; margin-bottom: 8px; }
   @keyframes wave { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(20deg); } 75% { transform: rotate(-15deg); } }
   .wave { display: inline-block; animation: wave 1.5s infinite; transform-origin: 70% 70%; }
-  .splash { position: fixed; inset: 0; background: linear-gradient(135deg, #005f8a 0%, #0077b6 20%, #00b4d8 40%, #06d6a0 60%, #ffd166 80%, #ff6b35 100%); background-size: 300% 300%; animation: splashGrad 8s ease infinite; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; transition: opacity 0.8s ease-out; overflow: hidden; }
-  @keyframes splashGrad { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+  .splash { position: fixed; inset: 0; background: url('splash-bg.jpg') center/cover no-repeat; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; transition: opacity 0.8s ease-out; overflow: hidden; }
+  .splash::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.35); z-index: 0; }
+  .splash > * { position: relative; z-index: 1; }
   .splash.hide { opacity: 0; pointer-events: none; }
   .splash h1 { font-family: 'Fredoka', sans-serif; font-size: 2.2rem; color: var(--white); text-shadow: 3px 3px 6px rgba(0,0,0,0.3); animation: fadeIn 0.6s ease-out 0.15s both; text-align: center; }
   .splash .splash-emoji { font-size: 1.8rem; margin-bottom: 20px; animation: fadeIn 0.6s ease-out 0s both; letter-spacing: 8px; text-align: center; }
