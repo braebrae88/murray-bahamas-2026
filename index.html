@@ -105,17 +105,48 @@
   .splash .palm-left { position: absolute; left: -10px; bottom: 60px; font-size: 4rem; transform: rotate(-15deg); animation: palmSway 2s ease-in-out infinite; opacity: 0.4; }
   .splash .palm-right { position: absolute; right: -10px; bottom: 60px; font-size: 4rem; transform: rotate(15deg) scaleX(-1); animation: palmSway 2s ease-in-out 0.5s infinite; opacity: 0.4; }
   @keyframes palmSway { 0%,100% { transform: rotate(-15deg); } 50% { transform: rotate(-10deg); } }
+  /* Ocean waves */
+  .splash .ocean { position: absolute; bottom: 0; left: 0; right: 0; height: 100px; overflow: hidden; }
+  .splash .wave-row { position: absolute; bottom: 0; left: -100%; width: 300%; font-size: 2rem; letter-spacing: -2px; line-height: 1; white-space: nowrap; }
+  .splash .wave-row.w1 { bottom: 0; animation: waveScroll 4s linear infinite; opacity: 0.3; }
+  .splash .wave-row.w2 { bottom: 15px; animation: waveScroll 5s linear infinite reverse; opacity: 0.2; }
+  .splash .wave-row.w3 { bottom: 30px; animation: waveScroll 6s linear infinite; opacity: 0.15; }
+  @keyframes waveScroll { 0% { transform: translateX(0); } 100% { transform: translateX(33.33%); } }
+  /* Sailing boat */
+  .splash .boat { position: absolute; bottom: 55px; font-size: 2.2rem; animation: sailBy 6s linear infinite; z-index: 2; }
+  @keyframes sailBy { 0% { left: -10%; } 100% { left: 110%; } }
+  /* Swimming pig */
+  .splash .swim-pig { position: absolute; bottom: 35px; font-size: 1.8rem; animation: pigSwim 8s linear infinite; z-index: 2; }
+  @keyframes pigSwim { 0% { right: -10%; transform: scaleX(-1); } 100% { right: 110%; transform: scaleX(-1); } }
+  .splash .swim-pig .pig-splash { font-size: 0.8rem; position: absolute; top: -5px; left: -8px; animation: splashy 0.4s ease-in-out infinite alternate; }
+  @keyframes splashy { 0% { transform: translateY(0) scale(1); opacity: 0.8; } 100% { transform: translateY(-6px) scale(1.2); opacity: 0.3; } }
+  /* Dolphin */
+  .splash .dolphin { position: absolute; bottom: 45px; font-size: 2rem; animation: dolphinJump 3s ease-in-out infinite; z-index: 2; }
+  @keyframes dolphinJump { 0% { left: 20%; bottom: 45px; transform: rotate(0deg); } 15% { bottom: 110px; transform: rotate(-30deg); } 30% { bottom: 45px; transform: rotate(0deg); } 100% { left: 20%; bottom: 45px; } }
+  .splash .dolphin2 { position: absolute; bottom: 45px; font-size: 1.6rem; animation: dolphinJump2 3s ease-in-out 1.5s infinite; z-index: 2; }
+  @keyframes dolphinJump2 { 0% { right: 25%; bottom: 45px; transform: rotate(0deg) scaleX(-1); } 15% { bottom: 100px; transform: rotate(30deg) scaleX(-1); } 30% { bottom: 45px; transform: rotate(0deg) scaleX(-1); } 100% { right: 25%; bottom: 45px; } }
+  /* Sun */
+  .splash .sun { position: absolute; top: 30px; right: 30px; font-size: 3rem; animation: sunGlow 2s ease-in-out infinite alternate; }
+  @keyframes sunGlow { 0% { transform: scale(1) rotate(0deg); filter: brightness(1); } 100% { transform: scale(1.15) rotate(15deg); filter: brightness(1.2); } }
+  /* Clouds */
+  .splash .cloud { position: absolute; font-size: 2rem; opacity: 0.3; }
+  .splash .cloud1 { top: 50px; animation: cloudDrift 12s linear infinite; }
+  .splash .cloud2 { top: 80px; font-size: 1.5rem; animation: cloudDrift 16s linear 3s infinite; opacity: 0.2; }
+  @keyframes cloudDrift { 0% { left: -15%; } 100% { left: 110%; } }
   .divider { text-align: center; color: #ccc; margin: 16px 0 8px; font-size: 0.75rem; letter-spacing: 2px; }
 </style>
 </head>
 <body>
 <div class="splash" id="splash">
+  <div class="sun">☀️</div>
+  <div class="cloud cloud1">☁️</div>
+  <div class="cloud cloud2">☁️</div>
   <div class="palm-left">🌴</div>
   <div class="palm-right">🌴</div>
   <div class="sparkle" style="top:15%;left:20%;animation-delay:0s;">✨</div>
-  <div class="sparkle" style="top:25%;right:15%;animation-delay:0.4s;">⭐</div>
-  <div class="sparkle" style="top:65%;left:12%;animation-delay:0.8s;">✨</div>
-  <div class="sparkle" style="top:70%;right:20%;animation-delay:1.2s;">🌟</div>
+  <div class="sparkle" style="top:22%;right:15%;animation-delay:0.4s;">⭐</div>
+  <div class="sparkle" style="top:55%;left:12%;animation-delay:0.8s;">✨</div>
+  <div class="sparkle" style="top:50%;right:20%;animation-delay:1.2s;">🌟</div>
   <div class="sparkle" style="top:10%;right:35%;animation-delay:0.6s;">💫</div>
   <div class="splash-emoji">🏝️ 🐷 🤿 🍹 🎰</div>
   <h1>The Murrays Go To<br>The Bahamas!</h1>
@@ -123,6 +154,15 @@
   <p>Paradise Island · Feb 2026</p>
   <div class="splash-crew">10 of us. 8 days. Unlimited memories. 🌴</div>
   <div class="splash-year">2026</div>
+  <div class="ocean">
+    <div class="wave-row w3">🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊</div>
+    <div class="wave-row w2">🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊</div>
+    <div class="wave-row w1">🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊</div>
+  </div>
+  <div class="boat">⛵</div>
+  <div class="swim-pig">🐷<div class="pig-splash">💦</div></div>
+  <div class="dolphin">🐬</div>
+  <div class="dolphin2">🐬</div>
 </div>
 
 <div class="hero">
@@ -419,6 +459,19 @@
 var WEATHER_DATA = {"2026-01-30": {"high": "25", "low": "18", "feels": "25", "desc": "Sunny", "humidity": "62", "sunset": "05:53 PM"}, "2026-01-31": {"high": "23", "low": "19", "feels": "25", "desc": "Sunny", "humidity": "74", "sunset": "05:54 PM"}, "2026-02-01": {"high": "15", "low": "14", "feels": "11", "desc": "Overcast", "humidity": "83", "sunset": "05:54 PM"}};
 
 var DAYS = [
+  { id:'mon2', label:'Mon', date:'Feb 2', name:'PACK NIGHT! 🧳', special:true, chipClass:'special',
+    sections: [
+      { title:'Night Before — Get Hyped!', icon:'🧳', items:[
+        { time:'EVENING', title:'🧳 Pack Your Bags!', desc:'Tomorrow you fly to PARADISE! Check the 🧳 Pack tab and go through every section. Check it ALL off!', type:'highlight', tags:['Don\'t Forget Anything!'], details:'Passport? ✅ Swimsuits (2!)? ✅ Reef-safe sunscreen? ✅ Waterproof phone case? ✅ Patriots gear? ✅ Dramamine? ✅ Go through the full list!' },
+        { time:'EVENING', title:'🏈 Lay Out Your Pats Gear', desc:'Super Bowl is Sunday. Make sure the jersey is packed and ready. Do Your Job!', type:'pats-card', tags:['Go Pats!'] },
+        { time:'EVENING', title:'📱 Download Atlantis App', desc:'Get it now so you\'re ready. Maps, events, restaurant reservations all in one place.', type:'', tags:['Do This Tonight'] },
+        { time:'TONIGHT', title:'💤 Get Some Sleep!', desc:'Early flight tomorrow — AC940 at 9:05 AM from Pearson. Sandra\'s Taxi is meeting you at Nassau airport. Set those alarms!', type:'family', tags:['AC940 · 9:05 AM'], details:'Flight: Air Canada AC940, Toronto Pearson (YYZ) → Nassau (NAS), departing 9:05 AM. Get to the airport by 6:30-7:00 AM. Sandra\'s Taxi confirmed for Nassau pickup.' },
+      ]},
+      { title:'Get Excited!', icon:'🎉', items:[
+        { time:'', title:'🏝️ This Time Tomorrow...', desc:'You\'ll be in 26°C weather, feet in white sand, drink in hand, watching the sunset over Paradise Island. TEN of you. Eight days. Let\'s make it unforgettable! 🌴🐷🤿🎰🍹', type:'highlight', tags:['LET\'S GOOO!'] },
+      ]}
+    ]
+  },
   { id:'tue3', label:'Tue', date:'Feb 3', name:'Arrival Day! 🛬', special:false, chipClass:'',
     sections: [
       { title:'Afternoon', icon:'🌤️', items:[
@@ -552,7 +605,7 @@ var DAYS = [
   }
 ];
 
-setTimeout(function(){ document.getElementById('splash').classList.add('hide'); }, 2800);
+setTimeout(function(){ document.getElementById('splash').classList.add('hide'); }, 4000);
 
 var scroll = document.getElementById('dayScroll');
 DAYS.forEach(function(d, i) {
