@@ -93,13 +93,13 @@
   .splash { position: fixed; inset: 0; background: linear-gradient(135deg, #005f8a 0%, #0077b6 20%, #00b4d8 40%, #06d6a0 60%, #ffd166 80%, #ff6b35 100%); background-size: 300% 300%; animation: splashGrad 8s ease infinite; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; transition: opacity 0.8s ease-out; overflow: hidden; }
   @keyframes splashGrad { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
   .splash.hide { opacity: 0; pointer-events: none; }
-  .splash h1 { font-family: 'Fredoka', sans-serif; font-size: 2.2rem; color: var(--white); text-shadow: 3px 3px 6px rgba(0,0,0,0.3); animation: fadeIn 1s ease-out 0.3s both; text-align: center; }
-  .splash .splash-emoji { font-size: 1.8rem; margin-bottom: 20px; animation: fadeIn 1s ease-out 0s both; letter-spacing: 8px; text-align: center; }
-  .splash p { color: rgba(255,255,255,0.9); font-size: 1rem; margin-top: 8px; animation: fadeIn 1s ease-out 0.6s both; font-family: 'Fredoka', sans-serif; text-align: center; }
+  .splash h1 { font-family: 'Fredoka', sans-serif; font-size: 2.2rem; color: var(--white); text-shadow: 3px 3px 6px rgba(0,0,0,0.3); animation: fadeIn 0.6s ease-out 0.15s both; text-align: center; }
+  .splash .splash-emoji { font-size: 1.8rem; margin-bottom: 20px; animation: fadeIn 0.6s ease-out 0s both; letter-spacing: 8px; text-align: center; }
+  .splash p { color: rgba(255,255,255,0.9); font-size: 1rem; margin-top: 8px; animation: fadeIn 0.6s ease-out 0.3s both; font-family: 'Fredoka', sans-serif; text-align: center; }
   @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
   .splash .splash-year { font-family: 'Fredoka', sans-serif; font-size: 3.5rem; color: var(--white); opacity: 0.15; position: absolute; bottom: 40px; font-weight: 700; letter-spacing: 8px; }
-  .splash .splash-divider { width: 60px; height: 3px; background: rgba(255,255,255,0.5); border-radius: 3px; margin: 12px auto; animation: fadeIn 1s ease-out 0.5s both; }
-  .splash .splash-crew { font-size: 0.8rem; color: rgba(255,255,255,0.7); animation: fadeIn 1s ease-out 0.9s both; margin-top: 4px; text-align: center; }
+  .splash .splash-divider { width: 60px; height: 3px; background: rgba(255,255,255,0.5); border-radius: 3px; margin: 12px auto; animation: fadeIn 0.6s ease-out 0.25s both; }
+  .splash .splash-crew { font-size: 0.8rem; color: rgba(255,255,255,0.7); animation: fadeIn 0.6s ease-out 0.45s both; margin-top: 4px; text-align: center; }
   .splash .sparkle { position: absolute; font-size: 1.2rem; opacity: 0.5; }
   .splash .palm-left { position: absolute; left: -10px; bottom: 60px; font-size: 4rem; transform: rotate(-15deg); opacity: 0.4; }
   .splash .palm-right { position: absolute; right: -10px; bottom: 60px; font-size: 4rem; transform: rotate(15deg) scaleX(-1); opacity: 0.4; }
@@ -738,7 +738,7 @@ var DAYS = [
   }
 ];
 
-setTimeout(function(){ document.getElementById('splash').classList.add('hide'); }, 7000);
+setTimeout(function(){ document.getElementById('splash').classList.add('hide'); }, 3500);
 
 var scroll = document.getElementById('dayScroll');
 DAYS.forEach(function(d, i) {
