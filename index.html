@@ -334,7 +334,7 @@
     <div class="card fun"><h3>🚤 Jet Ski & Parasailing</h3><p>Book through resort. Jet ski tours $130-180, parasailing $100-120.</p><div class="tags"><span class="tag">Adults & Teens</span></div></div>
 
     <div class="section-head"><span class="icon">🏖️</span><h2>At Atlantis (Daily)</h2></div>
-    <div class="card family"><h3>🌊 Aquaventure Water Park</h3><p>141-acre! Slides, rapids, lazy river. Splashers for the little one. Open ~9AM-6PM.</p><div class="tags"><span class="tag kid">Kid Friendly</span></div></div>
+    <div class="card family"><h3>🌊 Aquaventure Water Park</h3><p>141-acre! Slides, rapids, lazy river. Splashers for the kids. Open ~9AM-6PM.</p><div class="tags"><span class="tag kid">Kid Friendly</span></div></div>
     <div class="card family"><h3>🦈 The Dig & Predator Lagoon</h3><p>Walk-through marine habitat. 50,000+ animals. Free for guests!</p><div class="tags"><span class="tag">Free</span><span class="tag kid">Kid Friendly</span></div></div>
     <div class="card family"><h3>👶 Atlantis Kids Adventures</h3><p>Supervised kids' club ages 3-12. Perfect for an adults' night out!</p></div>
     <div class="card family"><h3>🎰 Atlantis Casino</h3><p>85,000 sq ft. Table games, slots, poker. Open 10AM-4AM daily.</p><div class="tags"><span class="tag night">Adults</span></div></div>
@@ -381,7 +381,7 @@
     <div class="section-head"><span class="icon">📱</span><h2>Tech & Entertainment</h2></div>
     <div id="checklist-tech"></div>
 
-    <div class="section-head"><span class="icon">👶</span><h2>For the 6-Year-Old</h2></div>
+    <div class="section-head"><span class="icon">👶</span><h2>For the Kids</h2></div>
     <div id="checklist-kids"></div>
 
     <div class="section-head"><span class="icon">💡</span><h2>Pro Moves</h2></div>
@@ -413,7 +413,7 @@
     <div class="tip-card protip"><h3>🌞 Reef-Safe Sunscreen</h3><p>Required for Exuma/snorkeling. Bring from home — it's $$$ in the Bahamas.</p></div>
     <div class="tip-card protip"><h3>💊 Motion Sickness Meds</h3><p>Exuma boat ride is 1-1.5 hrs and can be bumpy. Dramamine for the kids!</p></div>
     <div class="tip-card protip"><h3>📸 Waterproof Phone Case</h3><p>MUST-HAVE for swimming with pigs, snorkeling, water park. Get one before the trip.</p></div>
-    <div class="tip-card protip"><h3>👟 Water Shoes</h3><p>Rocky areas at some beaches and excursions. Especially for the 6-year-old.</p></div>
+    <div class="tip-card protip"><h3>👟 Water Shoes</h3><p>Rocky areas at some beaches and excursions. Especially for the kids.</p></div>
 
     <div class="section-head"><span class="icon">🤫</span><h2>Insider Secrets</h2></div>
     <div class="tip-card insider"><h3>🌅 Best Sunset Spot</h3><p>Marina Village waterfront at 5:45 PM. Grab a drink from The Dilly Club and watch it happen.</p></div>
@@ -445,7 +445,7 @@ var DAYS = [
       { title:'Night Before — Get Hyped!', icon:'🧳', items:[
         { time:'EVENING', title:'🧳 Pack Your Bags!', desc:'Tomorrow you fly to PARADISE! Check the 🧳 Pack tab and go through every section. Check it ALL off!', type:'highlight', tags:['Don\'t Forget Anything!'], details:'Passport? ✅ Swimsuits (2!)? ✅ Reef-safe sunscreen? ✅ Waterproof phone case? ✅ Patriots gear? ✅ Dramamine? ✅ Go through the full list!' },
         { time:'EVENING', title:'🏈 Lay Out Your Pats Gear', desc:'Super Bowl is Sunday. Make sure the jersey is packed and ready. Do Your Job!', type:'pats-card', tags:['Go Pats!'] },
-        { time:'EVENING', title:'📱 Download Atlantis App', desc:'Get it now so you\'re ready. Maps, events, restaurant reservations all in one place.', type:'', tags:['Do This Tonight'] },
+        { time:'EVENING', title:'📱 Download Atlantis App', desc:'Get it now so you\'re ready. Maps, events, restaurant reservations all in one place.', type:'', tags:['Do This Tonight'], details:'<a href="https://apps.apple.com/app/atlantis-bahamas/id1457908498" target="_blank" style="color:var(--ocean);font-weight:600;">📲 Download for iPhone</a> · <a href="https://play.google.com/store/apps/details?id=com.atlantis.resort" target="_blank" style="color:var(--ocean);font-weight:600;">📲 Download for Android</a>' },
         { time:'TONIGHT', title:'💤 Get Some Sleep!', desc:'Early flight tomorrow — AC940 at 9:05 AM from Pearson. Sandra\'s Taxi is meeting you at Nassau airport. Set those alarms!', type:'family', tags:['AC940 · 9:05 AM'], details:'Flight: Air Canada AC940, Toronto Pearson (YYZ) → Nassau (NAS), departing 9:05 AM. Get to the airport by 6:30-7:00 AM. Sandra\'s Taxi confirmed for Nassau pickup.' },
       ]},
       { title:'Get Excited!', icon:'🎉', items:[
@@ -455,8 +455,11 @@ var DAYS = [
   },
   { id:'tue3', label:'Tue', date:'Feb 3', name:'Arrival Day! 🛬', special:false, chipClass:'',
     sections: [
+      { title:'Departure', icon:'✈️', items:[
+        { time:'9:05 AM', title:'✈️ Depart Toronto — AC940', desc:'Air Canada AC940 from Pearson (YYZ) → Nassau (NAS). Be at the airport by 6:30-7:00 AM!', type:'highlight', tags:['On Time ✅'], details:'Flight: Air Canada AC940 · Toronto Pearson T1 → Nassau Lynden Pindling · ~4 hrs · Check back here for live status updates!' },
+      ]},
       { title:'Afternoon', icon:'🌤️', items:[
-        { time:'~1:00 PM', title:'✈️ Welcome to Paradise!', desc:'Land in Nassau! Sandra\'s Taxi is picking us up at the airport.', type:'highlight', tags:['Arranged!'], details:'Sandra\'s Taxi — confirmed airport pickup. Keep an eye out after baggage claim.' },
+        { time:'~1:00 PM', title:'🛬 Welcome to Paradise!', desc:'Land in Nassau! Sandra\'s Taxi is picking us up at the airport.', type:'highlight', tags:['Arranged!'], details:'Sandra\'s Taxi — confirmed airport pickup. Keep an eye out after baggage claim.' },
         { time:'FIRST STOP', title:'🛒 Grocery & Liquor Store Run', desc:'Stopping on the way to Harborside to stock up! Breakfast food, snacks, water, drinks, beer, rum, mixers. Check the 🧳 Pack tab for the shopping lists!', type:'food', tags:['Save $$$', 'Don\'t Skip This'], details:'This is KEY with 10 people. Resort prices are brutal. Stock the Harborside kitchen with breakfast stuff, snacks, water, and drinks for the week. Hit the liquor store for beer, wine, rum, and mixers. Grab popcorn for Super Bowl Sunday!' },
         { time:'AFTERNOON', title:'🏖️ Settle In & Explore', desc:'Unpack, stock the fridge, then walk Marina Village. Let the first-timers soak it all in — it\'s magical the first time!', type:'family', tags:['Kid Friendly'], details:'Check out Marina Village shops, find the pools, walk to The Cove. The first-timers will be in awe. Don\'t rush them — let them take it all in.' },
         { time:'AFTERNOON', title:'☕ First Coffee in Paradise', desc:'Starbucks at Marina Village. Iced coffee hits different when you\'re looking at turquoise water.', type:'coffee', tags:[] },
@@ -466,7 +469,7 @@ var DAYS = [
         { time:'OR', title:'🍔 Shake Shack', desc:'NEW at Atlantis! Quick burgers and shakes if the crew is tired from travel.', type:'food', tags:['New!', 'Kid Friendly', 'Quick'] },
       ]},
       { title:'Evening', icon:'🌙', items:[
-        { time:'9:00 PM', title:'🎭 Junkanoo Fest!', desc:'Live Junkanoo at Marina Village! Drums, costumes, dancing in the streets. INCREDIBLE first-night energy!', type:'highlight', tags:["Don't Miss!", 'Kid Friendly'], details:'Junkanoo is the soul of the Bahamas. Elaborate costumes, cowbells, goatskin drums. The 6-year-old will be mesmerized. The first-timers will never forget it.' },
+        { time:'9:00 PM', title:'🎭 Junkanoo Fest!', desc:'Live Junkanoo at Marina Village! Drums, costumes, dancing in the streets. INCREDIBLE first-night energy!', type:'highlight', tags:["Don't Miss!", 'Kid Friendly'], details:'Junkanoo is the soul of the Bahamas. Elaborate costumes, cowbells, goatskin drums. The kids will be mesmerized. The first-timers will never forget it.' },
         { time:'LATE', title:'🎰 Casino Welcome Round', desc:"First spin of the trip! Sign up for the Atlantis rewards card — it's free and earns you comps all week.", type:'nightlife', tags:['Adults', 'Pro Tip'] },
       ]}
     ]
@@ -475,10 +478,10 @@ var DAYS = [
     sections: [
       { title:'Morning', icon:'☀️', items:[
         { time:'☕ EARLY', title:'☕ Cove Starbucks Walk', desc:'Beautiful morning walk from Harborside to The Cove. Coffee with infinity pool views.', type:'coffee', tags:['Great Routine'] },
-        { time:'9:00 AM', title:'🌊 Aquaventure — GO EARLY!', desc:'Hit it at opening — no lines! Slides, The Current lazy river, Splashers for the little one.', type:'fun', tags:['Kid Friendly', 'Pro Tip: Go at 9!'], details:'Leap of Faith — 60-foot near-vertical slide through a shark tank (brave adults!). The Current — mile-long river with waves and rapids. Splashers — zero-entry kids zone. Gets packed by 11 AM so start early!' },
+        { time:'9:00 AM', title:'🌊 Aquaventure — GO EARLY!', desc:'Hit it at opening — no lines! Slides, The Current lazy river, Splashers for the kids.', type:'fun', tags:['Kid Friendly', 'Pro Tip: Go at 9!'], details:'Leap of Faith — 60-foot near-vertical slide through a shark tank (brave adults!). The Current — mile-long river with waves and rapids. Splashers — zero-entry kids zone. Gets packed by 11 AM so start early!' },
       ]},
       { title:'Afternoon', icon:'🌤️', items:[
-        { time:'AFTERNOON', title:'🐬 Dolphin Cay', desc:'Dolphin encounters! Shallow water perfect for the 6-year-old, deep swim for adults. Sea lions too!', type:'fun', tags:['Book Ahead!', '$175-275/pp'], details:'Book ASAP — these sell out. Shallow interaction is waist-deep, great photos with dolphins. Sea lion encounters are more affordable and just as fun for kids.' },
+        { time:'AFTERNOON', title:'🐬 Dolphin Cay', desc:'Dolphin encounters! Shallow water perfect for the kids, deep swim for adults. Sea lions too!', type:'fun', tags:['Book Ahead!', '$175-275/pp'], details:'Book ASAP — these sell out. Shallow interaction is waist-deep, great photos with dolphins. Sea lion encounters are more affordable and just as fun for kids.' },
         { time:'AFTERNOON', title:'🦈 The Dig', desc:'Walk-through marine habitat. 50,000+ animals. Sharks, rays, jellyfish. FREE for guests!', type:'family', tags:['Free', 'Kid Friendly'] },
       ]},
       { title:'Dinner', icon:'🍽️', items:[
@@ -521,7 +524,7 @@ var DAYS = [
     sections: [
       { title:'Morning', icon:'☀️', items:[
         { time:'MORNING', title:'🛍️ Bay Street Luxury Shopping', desc:'Downtown Nassau. Gucci, John Bull, Colombian Emeralds (duty-free!). Straw Market for souvenirs with kids.', type:'fun', tags:['Family Friendly'], details:'Take the whole crew or split up — shoppers go to Bay Street, others hit the pool. Meet up for lunch.' },
-        { time:'11:00 AM', title:'🍫 Graycliff Chocolate Factory', desc:'Make your own chocolate! The 6-year-old and the nieces will LOVE this.', type:'family', tags:['Kid Friendly', 'Book Ahead'] },
+        { time:'11:00 AM', title:'🍫 Graycliff Chocolate Factory', desc:'Make your own chocolate! The kids will LOVE this.', type:'family', tags:['Kid Friendly', 'Book Ahead'] },
       ]},
       { title:'Afternoon', icon:'🌤️', items:[
         { time:'AFTERNOON', title:'🥃 John Watling\'s Distillery', desc:'Free tour + rum tastings for adults. Stunning colonial estate. Kids can explore the grounds.', type:'fun', tags:['Free', 'Family Friendly'] },
