@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Bahamas 🏝️">
+<title>🏝️ Murray Family Bahamas 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ocean: #0077b6; --ocean-dark: #005f8a; --sand: #ffd166; --coral: #ef476f;
+    --palm: #06d6a0; --sunset: #ff6b35; --sky: #e0f7fa; --white: #ffffff;
+    --dark: #1a1a2e; --text: #2d3436; --light-text: #636e72; --pats: #002244; --pats-red: #c60c30;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--sky); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+  .hero { background: linear-gradient(135deg, var(--ocean) 0%, #00b4d8 50%, var(--palm) 100%); padding: 30px 20px 20px; text-align: center; position: relative; overflow: hidden; }
+  .hero h1 { font-family: 'Fredoka', sans-serif; font-size: 1.6rem; color: var(--white); text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+  .hero .subtitle { color: rgba(255,255,255,0.9); font-size: 0.85rem; margin-top: 4px; }
+  .hero .dates { background: rgba(255,255,255,0.2); display: inline-block; padding: 4px 14px; border-radius: 20px; color: var(--white); font-size: 0.8rem; margin-top: 8px; font-weight: 500; }
+  .hero .emoji-row { font-size: 1.8rem; margin-top: 8px; letter-spacing: 4px; }
+  .day-scroll { display: flex; overflow-x: auto; padding: 12px 10px; gap: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: none; background: var(--white); border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 10; }
+  .day-scroll::-webkit-scrollbar { display: none; }
+  .day-chip { flex-shrink: 0; padding: 8px 14px; border-radius: 20px; border: 2px solid #e0e0e0; background: var(--white); font-size: 0.8rem; font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s; -webkit-tap-highlight-color: transparent; min-width: 70px; }
+  .day-chip.active { background: var(--ocean); color: var(--white); border-color: var(--ocean); transform: scale(1.05); }
+  .day-chip .day-name { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.7; }
+  .day-chip.special { border-color: var(--coral); }
+  .day-chip.special.active { background: var(--coral); border-color: var(--coral); }
+  .day-chip.pats { border-color: var(--pats); }
+  .day-chip.pats.active { background: var(--pats); border-color: var(--pats); }
+  .container { max-width: 500px; margin: 0 auto; padding: 0 12px 100px; }
+  .section-head { display: flex; align-items: center; gap: 8px; margin: 20px 0 10px; }
+  .section-head .icon { font-size: 1.4rem; }
+  .section-head h2 { font-family: 'Fredoka', sans-serif; font-size: 1.1rem; color: var(--ocean-dark); }
+  .card { background: var(--white); border-radius: 16px; padding: 16px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid var(--ocean); transition: transform 0.15s; }
+  .card:active { transform: scale(0.98); }
+  .card.highlight { border-left-color: var(--coral); background: linear-gradient(135deg, #fff5f5 0%, var(--white) 100%); }
+  .card.food { border-left-color: var(--sunset); }
+  .card.fun { border-left-color: var(--palm); }
+  .card.family { border-left-color: var(--sand); }
+  .card.pats-card { border-left-color: var(--pats); background: linear-gradient(135deg, #e8edf2 0%, var(--white) 100%); }
+  .card.nightlife { border-left-color: #9b59b6; background: linear-gradient(135deg, #f5eef8 0%, var(--white) 100%); }
+  .card.coffee { border-left-color: #00704A; }
+  .card .time { font-size: 0.75rem; color: var(--ocean); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .card h3 { font-family: 'Fredoka', sans-serif; font-size: 1rem; margin: 4px 0; color: var(--dark); }
+  .card p { font-size: 0.85rem; color: var(--light-text); line-height: 1.4; }
+  .card .tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .card .tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; background: var(--sky); color: var(--ocean-dark); font-weight: 500; }
+  .card .tag.hot { background: #ffe0e6; color: var(--coral); }
+  .card .tag.kid { background: #e0ffe0; color: #2d8a4e; }
+  .card .tag.book { background: #fff3e0; color: var(--sunset); }
+  .card .tag.night { background: #f0e6f6; color: #7d3c98; }
+  .card .tag.new { background: #e8f8f5; color: #1abc9c; }
+  .card .details { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .card.expanded .details { max-height: 500px; }
+  .card .details-inner { padding-top: 10px; margin-top: 10px; border-top: 1px dashed #e0e0e0; font-size: 0.82rem; color: var(--light-text); line-height: 1.5; }
+  .card .expand-hint { font-size: 0.7rem; color: #aaa; margin-top: 6px; }
+  .resto-card { background: var(--white); border-radius: 16px; padding: 14px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; gap: 12px; align-items: center; }
+  .resto-card .resto-emoji { font-size: 2rem; }
+  .resto-card .resto-info { flex: 1; }
+  .resto-card .resto-name { font-family: 'Fredoka', sans-serif; font-size: 0.95rem; color: var(--dark); }
+  .resto-card .resto-desc { font-size: 0.78rem; color: var(--light-text); margin-top: 2px; }
+  .resto-card .resto-meta { font-size: 0.72rem; color: var(--ocean); font-weight: 600; margin-top: 4px; }
+  .resto-card .stars { color: var(--sand); }
+  .weather { background: linear-gradient(135deg, #fff9c4 0%, #ffe082 100%); border-radius: 16px; padding: 14px; margin: 16px 0; display: flex; align-items: center; gap: 12px; }
+  .weather .temp { font-family: 'Fredoka', sans-serif; font-size: 2rem; color: var(--sunset); }
+  .weather .wx-info { font-size: 0.8rem; color: var(--text); }
+  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); border-top: 1px solid #e0e0e0; display: flex; z-index: 20; padding-bottom: env(safe-area-inset-bottom); }
+  .nav-btn { flex: 1; text-align: center; padding: 10px 0 8px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .nav-btn .nav-icon { font-size: 1.3rem; }
+  .nav-btn .nav-label { font-size: 0.65rem; color: var(--light-text); margin-top: 2px; }
+  .nav-btn.active .nav-label { color: var(--ocean); font-weight: 600; }
+  .tab-page { display: none; }
+  .tab-page.active { display: block; }
+  .share-btn { background: var(--ocean); color: var(--white); border: none; padding: 14px; border-radius: 16px; width: 100%; font-size: 1rem; font-weight: 600; cursor: pointer; font-family: 'Fredoka', sans-serif; margin-top: 16px; }
+  .share-btn:active { background: var(--ocean-dark); }
+  .tip-card { background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border-radius: 16px; padding: 14px; margin-bottom: 10px; }
+  .tip-card.protip { background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); }
+  .tip-card.insider { background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); }
+  .tip-card h3 { font-family: 'Fredoka', sans-serif; font-size: 0.9rem; color: var(--ocean-dark); margin-bottom: 4px; }
+  .tip-card.protip h3 { color: var(--sunset); }
+  .tip-card.insider h3 { color: #7d3c98; }
+  .tip-card p { font-size: 0.82rem; color: var(--text); line-height: 1.4; }
+  .banner { background: linear-gradient(135deg, var(--pats) 0%, #0a3d6b 100%); border-radius: 16px; padding: 16px; margin: 16px 0; text-align: center; }
+  .banner h2 { font-family: 'Fredoka', sans-serif; color: var(--white); font-size: 1.2rem; }
+  .banner p { color: rgba(255,255,255,0.8); font-size: 0.85rem; margin-top: 4px; }
+  .banner .big-emoji { font-size: 2.5rem; margin-bottom: 8px; }
+  @keyframes wave { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(20deg); } 75% { transform: rotate(-15deg); } }
+  .wave { display: inline-block; animation: wave 1.5s infinite; transform-origin: 70% 70%; }
+  .splash { position: fixed; inset: 0; background: linear-gradient(135deg, var(--ocean) 0%, #00b4d8 50%, var(--palm) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; transition: opacity 0.5s; }
+  .splash.hide { opacity: 0; pointer-events: none; }
+  .splash h1 { font-family: 'Fredoka', sans-serif; font-size: 2rem; color: var(--white); }
+  .splash .splash-emoji { font-size: 4rem; margin-bottom: 16px; }
+  .splash p { color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 8px; }
+  .divider { text-align: center; color: #ccc; margin: 16px 0 8px; font-size: 0.75rem; letter-spacing: 2px; }
+</style>
+</head>
+<body>
+<div class="splash" id="splash">
+  <div class="splash-emoji">🏝️</div>
+  <h1>Murray Family</h1>
+  <p>Bahamas 2026 · Let's Go!</p>
+</div>
+
+<div class="hero">
+  <div class="emoji-row"><span class="wave">🌴</span> 🐷 🤿 🐬 🎰 🍹 <span class="wave">🌴</span></div>
+  <h1>Bahamas Trip 2026</h1>
+  <div class="subtitle">The Murray Family Adventure</div>
+  <div class="dates">Feb 3 - 10 · Atlantis Harborside · Paradise Island</div>
+</div>
+
+<div class="day-scroll" id="dayScroll"></div>
+
+<div class="container">
+  <div class="tab-page active" id="tab-schedule">
+    <div class="weather">
+      <div class="temp">78°</div>
+      <div class="wx-info"><strong>Mostly Sunny All Week</strong><br>Water: 75°F · Sunset ~5:50 PM<br>Pack the sunscreen, it's paradise time ☀️</div>
+    </div>
+    <div id="day-content"></div>
+  </div>
+
+  <!-- EAT TAB -->
+  <div class="tab-page" id="tab-eat">
+    <div class="section-head"><span class="icon">☕</span><h2>Morning Coffee</h2></div>
+    <div class="resto-card">
+      <div class="resto-emoji">☕</div>
+      <div class="resto-info">
+        <div class="resto-name">Starbucks — Marina Village</div>
+        <div class="resto-desc">Quick walk from Harborside. Your morning go-to.</div>
+        <div class="resto-meta">📍 Marina Village</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">☕</div>
+      <div class="resto-info">
+        <div class="resto-name">Starbucks — The Cove</div>
+        <div class="resto-desc">Nice walk over to The Cove. Grab coffee, enjoy the views.</div>
+        <div class="resto-meta">📍 The Cove at Atlantis</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">☕</div>
+      <div class="resto-info">
+        <div class="resto-name">Starbucks — Coral Towers</div>
+        <div class="resto-desc">Inside the main Atlantis complex.</div>
+        <div class="resto-meta">📍 Coral Towers lobby area</div>
+      </div>
+    </div>
+
+    <div class="section-head"><span class="icon">🍔</span><h2>Quick Bites at Atlantis</h2></div>
+    <div class="resto-card">
+      <div class="resto-emoji">🍔</div>
+      <div class="resto-info">
+        <div class="resto-name">Shake Shack</div>
+        <div class="resto-desc">NEW! Burgers, shakes, fries. The kids will love it.</div>
+        <div class="resto-meta">⭐ 4.0 · 📍 Paradise Beach Dr · 🆕 New addition!</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">🍕</div>
+      <div class="resto-info">
+        <div class="resto-name">Marina Pizzeria</div>
+        <div class="resto-desc">Quick, easy pizza at Marina Village. Perfect for the kids.</div>
+        <div class="resto-meta">⭐ 3.8 · 📍 Marina Village</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">🐚</div>
+      <div class="resto-info">
+        <div class="resto-name">McKenzie's Conch Shack</div>
+        <div class="resto-desc">Fresh conch right at Marina Village. Quick, authentic, delicious.</div>
+        <div class="resto-meta">⭐ 4.4 · 📍 Marina Village</div>
+      </div>
+    </div>
+
+    <div class="section-head"><span class="icon">🏨</span><h2>Atlantis Dining (Nice)</h2></div>
+    <div class="resto-card">
+      <div class="resto-emoji">🍝</div>
+      <div class="resto-info">
+        <div class="resto-name">Paranza</div>
+        <div class="resto-desc">High-end fresh pasta. The Italian spot by the marina you love.</div>
+        <div class="resto-meta"><span class="stars">★★★★½</span> 4.6 · $$$ · Casino Drive</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">🍣</div>
+      <div class="resto-info">
+        <div class="resto-name">Nobu</div>
+        <div class="resto-desc">World-famous Japanese. Splurge night worthy.</div>
+        <div class="resto-meta">$$$$ · Atlantis</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">🇫🇷</div>
+      <div class="resto-info">
+        <div class="resto-name">Café Martinique</div>
+        <div class="resto-desc">Elegant French. Featured in James Bond. Stunning setting.</div>
+        <div class="resto-meta">⭐ 4.1 · $$$$ · Marina Village</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">🥩</div>
+      <div class="resto-info">
+        <div class="resto-name">Seafire Steakhouse</div>
+        <div class="resto-desc">Premium steaks and seafood. Great for a group dinner.</div>
+        <div class="resto-meta">⭐ 3.9 · $$$ · Casino Drive</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">🍝</div>
+      <div class="resto-info">
+        <div class="resto-name">Carmine's</div>
+        <div class="resto-desc">Family-style Italian. HUGE portions. Perfect for the whole group of 10.</div>
+        <div class="resto-meta">⭐ 3.8 · $$$ · Atlantis</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">🦩</div>
+      <div class="resto-info">
+        <div class="resto-name">The Dilly Club</div>
+        <div class="resto-desc">Trendy Marina Village spot. Great drinks and food.</div>
+        <div class="resto-meta"><span class="stars">★★★★★</span> 4.7 · 📍 Marina Village · 🆕</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">🍹</div>
+      <div class="resto-info">
+        <div class="resto-name">Margaritaville</div>
+        <div class="resto-desc">Jimmy Buffett's. Fun, loud, touristy but the first-timers will enjoy it!</div>
+        <div class="resto-meta">⭐ 3.8 · $$ · Marina Drive</div>
+      </div>
+    </div>
+
+    <div class="section-head"><span class="icon">🍽️</span><h2>Local Gems (Off-Resort)</h2></div>
+    <div class="resto-card">
+      <div class="resto-emoji">🇮🇹</div>
+      <div class="resto-info">
+        <div class="resto-name">Café Matisse</div>
+        <div class="resto-desc">Best restaurant in Nassau. French-Italian, colonial house. Near Gucci store.</div>
+        <div class="resto-meta"><span class="stars">★★★★★</span> 4.7 · $$$ · Bank Lane · 📞 (242) 356-7012</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">🌿</div>
+      <div class="resto-info">
+        <div class="resto-name">Sapodilla Estate</div>
+        <div class="resto-desc">Elevated Bahamian. Beautiful estate. Locals' secret.</div>
+        <div class="resto-meta"><span class="stars">★★★★½</span> 4.5 · $$$ · W Bay St</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">🍝</div>
+      <div class="resto-info">
+        <div class="resto-name">Mogano</div>
+        <div class="resto-desc">Upscale Italian. Off the beaten path. Worth the drive.</div>
+        <div class="resto-meta"><span class="stars">★★★★½</span> 4.5 · $$$ · Mahogany Hill</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">🐟</div>
+      <div class="resto-info">
+        <div class="resto-name">Kyma Seafood Grill</div>
+        <div class="resto-desc">Greek-Bahamian seafood. Locals love it.</div>
+        <div class="resto-meta"><span class="stars">★★★★½</span> 4.6 · $$ · Windsor Field Rd</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">🍷</div>
+      <div class="resto-info">
+        <div class="resto-name">Spritz Wine Bar</div>
+        <div class="resto-desc">Italian at Olde Towne Marina. Fresh pasta, great wine.</div>
+        <div class="resto-meta"><span class="stars">★★★★</span> 4.4 · $$ · Sandyport Marina</div>
+      </div>
+    </div>
+    <div class="resto-card">
+      <div class="resto-emoji">🐚</div>
+      <div class="resto-info">
+        <div class="resto-name">Fish Fry at Arawak Cay</div>
+        <div class="resto-desc">THE local spot. Conch salad, cracked conch, sky juice. Live music. A MUST.</div>
+        <div class="resto-meta">💰 Cheap · Arawak Cay · No reservation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLORE TAB -->
+  <div class="tab-page" id="tab-explore">
+    <div class="section-head"><span class="icon">🎯</span><h2>Excursions</h2></div>
+    <div class="card fun"><h3>🐷 Swimming with Pigs — Exuma</h3><p>Full-day powerboat trip. Pigs, nurse sharks, iguanas, snorkeling!</p><div class="tags"><span class="tag hot">Booked Thu Feb 5!</span><span class="tag kid">Kid Friendly</span></div></div>
+    <div class="card fun"><h3>🐬 Dolphin Cay at Atlantis</h3><p>Shallow water (great for kids) or deep water swim. Sea lions too!</p><div class="tags"><span class="tag book">Book ahead · $175-275/pp</span><span class="tag kid">Kid Friendly</span></div></div>
+    <div class="card fun"><h3>🏝️ Blue Lagoon Island</h3><p>Boat from Paradise Island. Beach, dolphins, sea lions, hammocks.</p><div class="tags"><span class="tag book">$85-250/pp</span><span class="tag kid">Kid Friendly</span></div></div>
+    <div class="card fun"><h3>🤿 Snorkeling — Stuart Cove's</h3><p>Reef snorkeling, shark dive, glass bottom boat. Rose Island trips.</p><div class="tags"><span class="tag">$70-150/pp</span><span class="tag kid">Kid Friendly</span></div></div>
+    <div class="card fun"><h3>🚤 Jet Ski & Parasailing</h3><p>Book through resort. Jet ski tours $130-180, parasailing $100-120.</p><div class="tags"><span class="tag">Adults & Teens</span></div></div>
+
+    <div class="section-head"><span class="icon">🏖️</span><h2>At Atlantis (Daily)</h2></div>
+    <div class="card family"><h3>🌊 Aquaventure Water Park</h3><p>141-acre! Slides, rapids, lazy river. Splashers for the little one. Open ~9AM-6PM.</p><div class="tags"><span class="tag kid">Kid Friendly</span></div></div>
+    <div class="card family"><h3>🦈 The Dig & Predator Lagoon</h3><p>Walk-through marine habitat. 50,000+ animals. Free for guests!</p><div class="tags"><span class="tag">Free</span><span class="tag kid">Kid Friendly</span></div></div>
+    <div class="card family"><h3>👶 Atlantis Kids Adventures</h3><p>Supervised kids' club ages 3-12. Perfect for an adults' night out!</p></div>
+    <div class="card family"><h3>🎰 Atlantis Casino</h3><p>85,000 sq ft. Table games, slots, poker. Open 10AM-4AM daily.</p><div class="tags"><span class="tag night">Adults</span></div></div>
+
+    <div class="section-head"><span class="icon">🛍️</span><h2>Shopping & Culture</h2></div>
+    <div class="card fun"><h3>🛍️ Bay Street Luxury Shopping</h3><p>Gucci, John Bull, Colombian Emeralds. Duty-free! Straw Market for souvenirs.</p><div class="tags"><span class="tag kid">Family Friendly</span></div></div>
+    <div class="card fun"><h3>🏖️ Cable Beach & Baha Mar</h3><p>Visit the stunning new Baha Mar resort complex! Grand Hyatt, Rosewood, SLS. Beautiful Cable Beach. Your sister will love it.</p><div class="tags"><span class="tag new">New Since Last Visit!</span></div></div>
+    <div class="card fun"><h3>🍫 Graycliff Chocolate Factory</h3><p>Make your own chocolate! Downtown Nassau. Kids love it.</p><div class="tags"><span class="tag kid">Kid Friendly</span></div></div>
+    <div class="card fun"><h3>🥃 John Watling's Distillery</h3><p>Free tour + rum tastings. Beautiful colonial estate.</p><div class="tags"><span class="tag">Free Tour</span></div></div>
+    <div class="card fun"><h3>🏰 Fort Charlotte & Queen's Staircase</h3><p>66 steps carved from limestone. Great Nassau views.</p><div class="tags"><span class="tag">Free</span><span class="tag kid">Kid Friendly</span></div></div>
+
+    <div class="section-head"><span class="icon">🎵</span><h2>Nightlife & Dancing</h2></div>
+    <div class="card nightlife"><h3>🎵 Aura Nightclub</h3><p>Atlantis' main nightclub. DJs, dancing, cocktails. Right next to the casino.</p><div class="tags"><span class="tag night">Adults · Late Night</span></div></div>
+    <div class="card nightlife"><h3>🎤 Bond Nightclub at SLS Baha Mar</h3><p>Sleek nightclub at the new SLS hotel. Cable Beach vibes.</p><div class="tags"><span class="tag night">Adults · Late Night</span><span class="tag new">New!</span></div></div>
+    <div class="card nightlife"><h3>🎷 Jazz Club at Baha Mar</h3><p>Intimate jazz lounge. Cocktails, live music. Classy date night.</p><div class="tags"><span class="tag night">Adults</span><span class="tag new">New!</span></div></div>
+    <div class="card nightlife"><h3>🌅 Sunset Beach Club</h3><p>Local favourite on W Bay St. Dancing, drinks, ocean views. The real Nassau nightlife.</p><div class="tags"><span class="tag night">Adults · Local Vibe</span></div></div>
+    <div class="card nightlife"><h3>🐸 Señor Frog's</h3><p>Wild, loud, fun. Nassau waterfront. 2,700+ reviews. Not classy — but unforgettable.</p><div class="tags"><span class="tag night">Party</span></div></div>
+    <div class="card nightlife"><h3>🎶 Fish Fry After Dark</h3><p>Arawak Cay gets lively at night. Local DJs, dancing, drinks under the stars.</p><div class="tags"><span class="tag night">Local Vibe</span></div></div>
+  </div>
+
+  <!-- TIPS TAB -->
+  <div class="tab-page" id="tab-tips">
+    <div class="section-head"><span class="icon">💡</span><h2>Pro Tips</h2></div>
+    <div class="tip-card"><h3>📱 Download the Atlantis App</h3><p>Daily event schedules, interactive map, restaurant reservations. Essential.</p></div>
+    <div class="tip-card"><h3>🐬 Book Dolphin Cay ASAP</h3><p>Sells out fast. Book online or hit the concierge first morning.</p></div>
+    <div class="tip-card"><h3>🛒 Stock the Kitchen!</h3><p>Harborside has a full kitchen. Grocery store run for breakfasts and snacks saves SERIOUS money with 10 people.</p></div>
+    <div class="tip-card"><h3>🚕 Getting to Nassau</h3><p>Uber/taxi Paradise Island → Nassau: ~$10-15. Quick and easy for dinner downtown.</p></div>
+    <div class="tip-card"><h3>🍽️ Book Restaurants Early</h3><p>Café Matisse, Sapodilla, Nobu — book 2-3 days ahead. Call or email directly.</p></div>
+
+    <div class="section-head"><span class="icon">🧳</span><h2>Pack These</h2></div>
+    <div class="tip-card protip"><h3>🌞 Reef-Safe Sunscreen</h3><p>Required for Exuma/snorkeling. Bring from home — it's $$$ in the Bahamas.</p></div>
+    <div class="tip-card protip"><h3>💊 Motion Sickness Meds</h3><p>Exuma boat ride is 1-1.5 hrs and can be bumpy. Dramamine for the kids!</p></div>
+    <div class="tip-card protip"><h3>📸 Waterproof Phone Case</h3><p>MUST-HAVE for swimming with pigs, snorkeling, water park. Get one before the trip.</p></div>
+    <div class="tip-card protip"><h3>👟 Water Shoes</h3><p>Rocky areas at some beaches and excursions. Especially for the 6-year-old.</p></div>
+
+    <div class="section-head"><span class="icon">🤫</span><h2>Insider Secrets</h2></div>
+    <div class="tip-card insider"><h3>🌅 Best Sunset Spot</h3><p>Marina Village waterfront at 5:45 PM. Grab a drink from The Dilly Club and watch it happen.</p></div>
+    <div class="tip-card insider"><h3>🏊 Early Bird Pools</h3><p>Hit Aquaventure right at 9 AM — no lines for the first hour. By 11 it's packed.</p></div>
+    <div class="tip-card insider"><h3>🐚 Conch Salad Pro Move</h3><p>At Fish Fry, watch them make it fresh in front of you. Ask for extra lime. Sky juice = gin + coconut water.</p></div>
+    <div class="tip-card insider"><h3>🏨 Walk to The Cove</h3><p>Beautiful walk from Harborside through the resort. Coffee at Cove Starbucks, enjoy the infinity pool views. Great morning routine.</p></div>
+    <div class="tip-card insider"><h3>🆕 What's New Since Last Visit</h3><p>Shake Shack, The Dilly Club, Baha Mar resort complex on Cable Beach (Grand Hyatt + Rosewood + SLS), Bond Nightclub, Jazz Club. A LOT has changed in 3 years!</p></div>
+    <div class="tip-card insider"><h3>🎰 Casino Tip</h3><p>Sign up for the Atlantis rewards card DAY ONE. Free to join, earn comps on everything — drinks, dining, room upgrades.</p></div>
+    <div class="tip-card insider"><h3>👨‍👩‍👧 For the First-Timers</h3><p>Your sister and nieces haven't been — let them explore Marina Village first night. It's magical when you see it for the first time. Don't overwhelm with plans, let them soak it in.</p></div>
+
+    <button class="share-btn" onclick="shareApp()">📤 Share with Family</button>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <div class="nav-btn active" onclick="switchNav('schedule')"><div class="nav-icon">📅</div><div class="nav-label">Schedule</div></div>
+  <div class="nav-btn" onclick="switchNav('eat')"><div class="nav-icon">🍽️</div><div class="nav-label">Eat</div></div>
+  <div class="nav-btn" onclick="switchNav('explore')"><div class="nav-icon">🏄</div><div class="nav-label">Explore</div></div>
+  <div class="nav-btn" onclick="switchNav('tips')"><div class="nav-icon">💡</div><div class="nav-label">Tips</div></div>
+</div>
+
+<script>
+var DAYS = [
+  { id:'tue3', label:'Tue', date:'Feb 3', name:'Arrival Day! 🛬', special:false, chipClass:'',
+    sections: [
+      { title:'Afternoon', icon:'🌤️', items:[
+        { time:'~1:00 PM', title:'✈️ Welcome to Paradise!', desc:'Land in Nassau, taxi to Atlantis Harborside. The adventure begins!', type:'', tags:[] },
+        { time:'AFTERNOON', title:'🏖️ Settle In & Explore', desc:'Unpack, walk Marina Village, find your pools. Let the first-timers soak it all in.', type:'family', tags:['Kid Friendly'], details:'Check out Marina Village shops, walk to The Cove for a look around. Starbucks at the Marina for a pick-me-up after the flight.' },
+        { time:'AFTERNOON', title:'☕ Coffee Run', desc:'Starbucks at Marina Village or walk to The Cove location. Iced coffee in paradise hits different.', type:'coffee', tags:[] },
+      ]},
+      { title:'Dinner', icon:'🍽️', items:[
+        { time:'DINNER', title:"🍝 Carmine's — Family Style Italian", desc:'Perfect first night for the whole group of 10. Huge portions, everyone shares. The first-timers will love the Atlantis vibe.', type:'food', tags:['No Reservation Needed', 'Kid Friendly'] },
+        { time:'OR', title:'🍔 Shake Shack', desc:'NEW at Atlantis! Quick burgers and shakes if the crew is tired from travel.', type:'food', tags:['New!', 'Kid Friendly', 'Quick'] },
+      ]},
+      { title:'Evening', icon:'🌙', items:[
+        { time:'9:00 PM', title:'🎭 Junkanoo Fest!', desc:'Live Junkanoo at Marina Village! Drums, costumes, dancing in the streets. INCREDIBLE first-night energy!', type:'highlight', tags:["Don't Miss!", 'Kid Friendly'], details:'Junkanoo is the soul of the Bahamas. Elaborate costumes, cowbells, goatskin drums. The 6-year-old will be mesmerized. The first-timers will never forget it.' },
+        { time:'LATE', title:'🎰 Casino Welcome Round', desc:"First spin of the trip! Sign up for the Atlantis rewards card — it's free and earns you comps all week.", type:'nightlife', tags:['Adults', 'Pro Tip'] },
+      ]}
+    ]
+  },
+  { id:'wed4', label:'Wed', date:'Feb 4', name:'Water Park Day 🌊', special:false, chipClass:'',
+    sections: [
+      { title:'Morning', icon:'☀️', items:[
+        { time:'☕ EARLY', title:'☕ Cove Starbucks Walk', desc:'Beautiful morning walk from Harborside to The Cove. Coffee with infinity pool views.', type:'coffee', tags:['Great Routine'] },
+        { time:'9:00 AM', title:'🌊 Aquaventure — GO EARLY!', desc:'Hit it at opening — no lines! Slides, The Current lazy river, Splashers for the little one.', type:'fun', tags:['Kid Friendly', 'Pro Tip: Go at 9!'], details:'Leap of Faith — 60-foot near-vertical slide through a shark tank (brave adults!). The Current — mile-long river with waves and rapids. Splashers — zero-entry kids zone. Gets packed by 11 AM so start early!' },
+      ]},
+      { title:'Afternoon', icon:'🌤️', items:[
+        { time:'AFTERNOON', title:'🐬 Dolphin Cay', desc:'Dolphin encounters! Shallow water perfect for the 6-year-old, deep swim for adults. Sea lions too!', type:'fun', tags:['Book Ahead!', '$175-275/pp'], details:'Book ASAP — these sell out. Shallow interaction is waist-deep, great photos with dolphins. Sea lion encounters are more affordable and just as fun for kids.' },
+        { time:'AFTERNOON', title:'🦈 The Dig', desc:'Walk-through marine habitat. 50,000+ animals. Sharks, rays, jellyfish. FREE for guests!', type:'family', tags:['Free', 'Kid Friendly'] },
+      ]},
+      { title:'Dinner', icon:'🍽️', items:[
+        { time:'7:00 PM', title:'🇮🇹 Café Matisse (Downtown Nassau)', desc:'THE best restaurant in Nassau. French-Italian in a gorgeous colonial house near the Gucci store. BOOK NOW.', type:'food', tags:['Reserve!', 'High-End', 'Sean\'s Pick'], details:'Call +1 (242) 356-7012 or email info@cafematisse.rest. Bank Lane, downtown Nassau. Taxi ~$10-15. Maybe adults only for this one?' },
+      ]},
+      { title:'Late Night', icon:'🌙', items:[
+        { time:'LATE', title:'🎰 Casino Night #1', desc:'Table games, slots, poker room. 85,000 sq ft of fun. Drinks flow freely when you\'re playing.', type:'nightlife', tags:['Adults'] },
+      ]}
+    ]
+  },
+  { id:'thu5', label:'Thu', date:'Feb 5', name:'EXUMA PIGS! 🐷', special:true, chipClass:'special',
+    sections: [
+      { title:'Full Day Adventure', icon:'🐷', items:[
+        { time:'10:00 AM', title:'🚤 Exuma Day Trip — LET\'S GO!', desc:'Powerboat to the Exuma Cays! Swimming with pigs, snorkeling, nurse sharks, iguanas on Allen\'s Cay!', type:'highlight', tags:['All Day', 'Kid Friendly', 'Booked!'], details:'Boat ride ~1-1.5 hrs each way (can be bumpy — Dramamine for kids!). Bring: reef-safe sunscreen, waterproof phone case, towels, snacks. Lunch usually included. Returns ~5-6 PM. This will be the highlight of the trip!' },
+      ]},
+      { title:'Evening', icon:'🌙', items:[
+        { time:'DINNER', title:'🏠 Easy Night In', desc:'Cook at Harborside (you stocked the kitchen, right?) or grab Shake Shack / Marina Pizzeria. Everyone will be gloriously wiped.', type:'food', tags:['Relaxed', 'Kid Friendly'] },
+        { time:'OR', title:'🐚 Fish Fry at Arawak Cay', desc:'If you\'ve got energy — THE must-do local spot. Conch salad, cracked conch, sky juice. Live music!', type:'food', tags:['Must Do!', 'Local', 'Cheap'] },
+      ]}
+    ]
+  },
+  { id:'fri6', label:'Fri', date:'Feb 6', name:'Beach & Junkanoo 🎭', special:false, chipClass:'',
+    sections: [
+      { title:'Daytime — Choose Your Adventure', icon:'☀️', items:[
+        { time:'OPTION A', title:'🏝️ Blue Lagoon Island', desc:'Boat trip! Beach, dolphins, sea lions, hammocks. Great full-day family outing.', type:'fun', tags:['Book Ahead', '$85-250/pp', 'Kid Friendly'] },
+        { time:'OPTION B', title:'🏖️ Beach & Pool Chill Day', desc:'Recover from yesterday! Five miles of beaches, 11 pools. Everyone pick their favourite spot.', type:'family', tags:['Free', 'Relaxed'] },
+        { time:'FOR SISTER', title:'🏖️ Cable Beach & Baha Mar Visit', desc:'Your sister wants to see Cable Beach and the new hotel! Baha Mar is stunning — Grand Hyatt, Rosewood, SLS. Beautiful beach, shopping, restaurants.', type:'fun', tags:['New!', 'Sister\'s Pick'], details:'Taxi to Cable Beach ~$15-20. Walk around the massive Baha Mar complex, check out the flamingo habitat, grab lunch at one of the restaurants. The beach is gorgeous.' },
+      ]},
+      { title:'Dinner', icon:'🍽️', items:[
+        { time:'DINNER', title:'🌿 Sapodilla Estate', desc:'Elevated Bahamian cuisine in a beautiful estate. The locals\' secret spot.', type:'food', tags:['High-End', 'Reserve', 'Sean\'s Pick'] },
+      ]},
+      { title:'Evening', icon:'🌙', items:[
+        { time:'9:00 PM', title:'🎭 Junkanoo Fest Round 2!', desc:'Second Junkanoo of the week at Marina Village! Even better when you know what\'s coming.', type:'highlight', tags:["Don't Miss!"] },
+        { time:'LATE', title:'🎵 Casino + Aura Nightclub', desc:'Hit the casino, then Aura for dancing! Or Bond at SLS Baha Mar if you visited today.', type:'nightlife', tags:['Adults', 'Dancing'] },
+      ]}
+    ]
+  },
+  { id:'sat7', label:'Sat', date:'Feb 7', name:'Shopping & Culture 🛍️', special:false, chipClass:'',
+    sections: [
+      { title:'Morning', icon:'☀️', items:[
+        { time:'MORNING', title:'🛍️ Bay Street Luxury Shopping', desc:'Downtown Nassau. Gucci, John Bull, Colombian Emeralds (duty-free!). Straw Market for souvenirs with kids.', type:'fun', tags:['Family Friendly'], details:'Take the whole crew or split up — shoppers go to Bay Street, others hit the pool. Meet up for lunch.' },
+        { time:'11:00 AM', title:'🍫 Graycliff Chocolate Factory', desc:'Make your own chocolate! The 6-year-old and the nieces will LOVE this.', type:'family', tags:['Kid Friendly', 'Book Ahead'] },
+      ]},
+      { title:'Afternoon', icon:'🌤️', items:[
+        { time:'AFTERNOON', title:'🥃 John Watling\'s Distillery', desc:'Free tour + rum tastings for adults. Stunning colonial estate. Kids can explore the grounds.', type:'fun', tags:['Free', 'Family Friendly'] },
+        { time:'AFTERNOON', title:'🏰 Fort Charlotte & Queen\'s Staircase', desc:'Quick cultural sightseeing. 66 limestone steps, great Nassau views. Nice with kids.', type:'family', tags:['Free', 'Kid Friendly'] },
+      ]},
+      { title:'Dinner', icon:'🍽️', items:[
+        { time:'DINNER', title:'🐟 Kyma Seafood Grill', desc:'Greek-Bahamian seafood. Off the tourist trail. Locals love this place.', type:'food', tags:['$$', 'Local'] },
+        { time:'OR', title:'🍹 Margaritaville', desc:'Fun, loud, touristy — but the first-timers will love it! Good vibes for the group.', type:'food', tags:['Fun', 'Kid Friendly', 'First-Timer Friendly'] },
+      ]},
+      { title:'Late Night', icon:'🌙', items:[
+        { time:'LATE', title:'🌅 Sunset Beach Club', desc:'Local favourite for dancing! Ocean views, great DJ, drinks. THIS is where Nassau goes out.', type:'nightlife', tags:['Adults', 'Dancing', 'Local Vibe'] },
+        { time:'OR', title:'🎷 Jazz Club at Baha Mar', desc:'More chill? Intimate jazz, cocktails. Classy date night vibes.', type:'nightlife', tags:['Adults', 'New!', 'Classy'] },
+      ]}
+    ]
+  },
+  { id:'sun8', label:'Sun', date:'Feb 8', name:'SUPER BOWL! 🏈', special:true, chipClass:'pats',
+    sections: [
+      { title:'Game Day Baby!', icon:'🏈', items:[
+        { time:'', title:'', desc:'', type:'banner', tags:[], banner:true, bannerEmoji:'🏈🇺🇸', bannerTitle:'SUPER BOWL LX', bannerSub:'LET\'S GO PATS! 🏈 Do Your Job!' },
+      ]},
+      { title:'Morning', icon:'☀️', items:[
+        { time:'MORNING', title:'🏖️ Relaxed Beach Morning', desc:'Easy start. Pool, beach, sleep in. Save your energy for tonight!', type:'family', tags:['Relaxed'] },
+      ]},
+      { title:'Afternoon', icon:'🌤️', items:[
+        { time:'1:00 PM', title:'🦩 Flamingo Brunch', desc:"Poseidon's Table. Pink flamingo-themed brunch buffet! Fun for the whole crew.", type:'food', tags:['Kid Friendly', 'Fun!'], details:'1 PM - 3:30 PM. Vibrant, themed brunch. Great photo ops. Get the group together for this one.' },
+      ]},
+      { title:'THE BIG GAME', icon:'🏈', items:[
+        { time:'PRE-GAME', title:'🍻 Pre-Game Setup', desc:'Grab your spot early! Beer specials and cocktails flowing. Wear your Pats gear proudly.', type:'pats-card', tags:['Go Pats!'] },
+        { time:'KICKOFF', title:'🏈 SUPER BOWL LX — LET\'S GOOOO!', desc:'Multiple watch spots at Atlantis. The whole resort will be electric!', type:'highlight', tags:['THE Event!'], details:'🏟️ Crush — Family-friendly, games for kids, big screens, bites\n🎩 Ocean Club Clubhouse — Upscale tailgate, panoramic views\n🎰 Casino Sports Lounge — Adults-only energy\n\nPick your vibe. Pats fans don\'t need a reason to get loud! 🇺🇸' },
+        { time:'POST-GAME', title:'🎉 Victory Celebration (Manifesting)', desc:'Win or lose, we celebrate! Casino, drinks, maybe Aura if the energy is right.', type:'nightlife', tags:['Adults', 'Party'] },
+      ]}
+    ]
+  },
+  { id:'mon9', label:'Mon', date:'Feb 9', name:'Last Full Day 🌅', special:false, chipClass:'',
+    sections: [
+      { title:'Morning', icon:'☀️', items:[
+        { time:'☕ EARLY', title:'☕ Last Cove Coffee Walk', desc:'One more morning walk to The Cove Starbucks. Soak it all in.', type:'coffee', tags:['Savour It'] },
+        { time:'MORNING', title:'🌊 Final Aquaventure Run', desc:'Last chance! Hit whatever slides and rides you missed. Make it count!', type:'fun', tags:['Kid Friendly'] },
+      ]},
+      { title:'Afternoon', icon:'🌤️', items:[
+        { time:'AFTERNOON', title:'🐚 Fish Fry at Arawak Cay', desc:'If you haven\'t been — GO TODAY. Last chance for fresh conch salad and sky juice. No excuses!', type:'food', tags:['Must Do!', 'Local', 'Cheap'], details:'Watch them crack the conch and make the salad fresh in front of you. Ask for extra lime. Sky juice = gin + coconut water. Grab some johnnycakes too.' },
+        { time:'AFTERNOON', title:'🏖️ Last Beach Time', desc:'Final afternoon on those white sand beaches. Take the group photo. Freeze this moment.', type:'family', tags:['🥲'] },
+      ]},
+      { title:'Dinner — Last Night Special', icon:'🍽️', items:[
+        { time:'SUNSET', title:'🌅 Marina Village Sunset Walk', desc:'5:50 PM. The whole family together. Drinks from The Dilly Club. Last sunset in paradise.', type:'family', tags:['Don\'t Miss This'] },
+        { time:'DINNER', title:'🍣 Nobu — The Grand Finale', desc:'Go out with a BANG. World-famous Japanese at Atlantis. Or Paranza for that fresh pasta.', type:'food', tags:['Splurge!', 'High-End', 'Celebrate!'] },
+        { time:'OR', title:'🍝 Mogano', desc:'Upscale Italian off the beaten path. Beautiful way to end the trip for the foodies.', type:'food', tags:['High-End', 'Local'] },
+      ]},
+      { title:'Last Night Out', icon:'🌙', items:[
+        { time:'LATE', title:'🎰 Farewell Casino Round', desc:'One. Last. Spin. Make it count! Then drinks at the bar, reminiscing about the week.', type:'nightlife', tags:['Adults', 'Make Memories'] },
+        { time:'LATE', title:'🎵 One Last Dance', desc:'Aura, Sunset Beach Club, or just dancing in Marina Village. End this trip RIGHT.', type:'nightlife', tags:['Adults', 'Dancing', 'Last Night!'] },
+      ]}
+    ]
+  },
+  { id:'tue10', label:'Tue', date:'Feb 10', name:'Home ✈️', special:false, chipClass:'',
+    sections: [
+      { title:'Morning', icon:'✈️', items:[
+        { time:'EARLY', title:'☀️ One Last Sunrise', desc:'Wake up early. Walk the beach one more time. Take it all in. You\'ll be back. 🏝️', type:'family', tags:[] },
+        { time:'MORNING', title:'✈️ Head to Airport', desc:'Pack up, check out, head home. Grab johnnycakes from a local bakery for the plane!', type:'', tags:[], details:'Allow extra time — Nassau airport can be busy. Duty-free shopping available airside for last-minute gifts.' },
+        { time:'', title:'💛 Until Next Time, Bahamas', desc:'What a trip. What a crew. Start planning the next one on the plane home. 🌴', type:'family', tags:[] },
+      ]}
+    ]
+  }
+];
+
+setTimeout(function(){ document.getElementById('splash').classList.add('hide'); }, 1500);
+
+var scroll = document.getElementById('dayScroll');
+DAYS.forEach(function(d, i) {
+  var chip = document.createElement('div');
+  var cls = 'day-chip' + (i === 0 ? ' active' : '');
+  if (d.chipClass) cls += ' ' + d.chipClass;
+  chip.className = cls;
+  chip.innerHTML = '<span class="day-name">' + d.label + '</span>' + d.date.split(' ')[1];
+  chip.onclick = function(){ selectDay(i); };
+  chip.id = 'chip-' + i;
+  scroll.appendChild(chip);
+});
+
+function selectDay(idx) {
+  document.querySelectorAll('.day-chip').forEach(function(c){ c.classList.remove('active'); });
+  document.getElementById('chip-'+idx).classList.add('active');
+  renderDay(DAYS[idx]);
+  document.getElementById('chip-'+idx).scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+  switchNav('schedule');
+}
+
+function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+function renderDay(day) {
+  var el = document.getElementById('day-content');
+  var html = '<div class="section-head"><span class="icon">📍</span><h2>' + esc(day.date) + ' — ' + day.name + '</h2></div>';
+  day.sections.forEach(function(s) {
+    html += '<div class="section-head"><span class="icon">' + s.icon + '</span><h2>' + esc(s.title) + '</h2></div>';
+    s.items.forEach(function(item, idx) {
+      if (item.banner) {
+        html += '<div class="banner"><div class="big-emoji">' + item.bannerEmoji + '</div><h2>' + esc(item.bannerTitle) + '</h2><p>' + esc(item.bannerSub) + '</p></div>';
+        return;
+      }
+      var cls = 'card';
+      if (item.type === 'highlight') cls += ' highlight';
+      else if (item.type === 'food') cls += ' food';
+      else if (item.type === 'fun') cls += ' fun';
+      else if (item.type === 'family') cls += ' family';
+      else if (item.type === 'nightlife') cls += ' nightlife';
+      else if (item.type === 'pats-card') cls += ' pats-card';
+      else if (item.type === 'coffee') cls += ' coffee';
+      var id = 'c-' + day.id + idx + Math.random().toString(36).substr(2,4);
+      html += '<div class="' + cls + '" id="' + id + '" onclick="toggleCard(\'' + id + '\')">';
+      if (item.time) html += '<div class="time">' + esc(item.time) + '</div>';
+      html += '<h3>' + item.title + '</h3>';
+      html += '<p>' + item.desc + '</p>';
+      if (item.tags && item.tags.length) {
+        html += '<div class="tags">';
+        item.tags.forEach(function(t) {
+          var tc = 'tag';
+          if (t.indexOf('Miss')>-1||t.indexOf('Booked')>-1||t.indexOf('Event')>-1||t.indexOf('Pats')>-1||t.indexOf('Must')>-1) tc += ' hot';
+          else if (t.indexOf('Kid')>-1||t.indexOf('Family')>-1||t.indexOf('First')>-1) tc += ' kid';
+          else if (t.indexOf('Book')>-1||t.indexOf('Reserve')>-1||t.indexOf('$')>-1||t.indexOf('Splurge')>-1) tc += ' book';
+          else if (t.indexOf('Adults')>-1||t.indexOf('Dancing')>-1||t.indexOf('Night')>-1||t.indexOf('Party')>-1||t.indexOf('Late')>-1) tc += ' night';
+          else if (t.indexOf('New')>-1) tc += ' new';
+          html += '<span class="' + tc + '">' + esc(t) + '</span>';
+        });
+        html += '</div>';
+      }
+      if (item.details) {
+        html += '<div class="details"><div class="details-inner">' + item.details.replace(/\n/g,'<br>') + '</div></div>';
+        html += '<div class="expand-hint">tap for details ▾</div>';
+      }
+      html += '</div>';
+    });
+  });
+  el.innerHTML = html;
+}
+
+function toggleCard(id) { var c = document.getElementById(id); if(c) c.classList.toggle('expanded'); }
+
+function switchNav(tab) {
+  document.querySelectorAll('.tab-page').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-'+tab).classList.add('active');
+  var tabs = ['schedule','eat','explore','tips'];
+  var idx = tabs.indexOf(tab);
+  if (idx >= 0) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function shareApp() {
+  if (navigator.share) {
+    navigator.share({ title:'Murray Family Bahamas 2026 🏝️', text:'Our Bahamas trip guide! Tap to see the full itinerary 🐷🤿🎰', url:window.location.href }).catch(function(){});
+  } else {
+    var u = window.location.href;
+    if (navigator.clipboard) { navigator.clipboard.writeText(u).then(function(){ alert('Link copied! Share it with the family.'); }); }
+    else { prompt('Copy this link to share:', u); }
+  }
+}
+
+renderDay(DAYS[0]);
+</script>
+</body>
+</html>
