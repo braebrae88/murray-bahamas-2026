@@ -86,7 +86,7 @@
   .tip-card p { font-size: 0.82rem; color: var(--text); line-height: 1.4; }
   .banner { background: linear-gradient(135deg, var(--pats) 0%, #0a3d6b 100%); border-radius: 16px; padding: 16px; margin: 16px 0; text-align: center; }
   .banner h2 { font-family: 'Fredoka', sans-serif; color: var(--white); font-size: 1.2rem; }
-  .banner p { color: rgba(255,255,255,0.8); font-size: 0.82rem; margin-top: 4px; }
+  .banner p { color: rgba(255,255,255,0.8); font-size: 0.78rem; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .banner .big-emoji { font-size: 2.5rem; margin-bottom: 8px; }
   @keyframes wave { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(20deg); } 75% { transform: rotate(-15deg); } }
   .wave { display: inline-block; animation: wave 1.5s infinite; transform-origin: 70% 70%; }
@@ -651,7 +651,7 @@ var DAYS = [
   { id:'fri6', label:'Fri', date:'Feb 6', name:'Beach & Olympics 🏅', chipIcon:'🏅',
     sections: [
       { title:'Winter Olympics Opening Night!', icon:'🏔️', items:[
-        { time:'', title:'', desc:'', type:'banner', tags:[], banner:true, bannerEmoji:'🏔️🇨🇦', bannerTitle:'WINTER OLYMPICS 2026', bannerSub:'Milano Cortina · Opening Ceremony Tonight! 🇮🇹 GO CANADA! 🇨🇦' },
+        { time:'', title:'', desc:'', type:'banner', tags:[], banner:true, bannerEmoji:'🏔️🇨🇦', bannerTitle:'WINTER OLYMPICS 2026', bannerSub:'Milano Cortina · Opening Ceremony Tonight! 🇮🇹🇨🇦 GO CANADA!' },
       ]},
       { title:'Daytime — Choose Your Adventure', icon:'☀️', items:[
         { time:'OPTION A', title:'🏝️ Blue Lagoon Island', desc:'Boat trip! Beach, dolphins, sea lions, hammocks. Great full-day family outing.', type:'fun', tags:['Book Ahead', '$85-250/pp', 'Kid Friendly'] },
