@@ -114,10 +114,7 @@
 
 <div class="container">
   <div class="tab-page active" id="tab-schedule">
-    <div class="weather">
-      <div class="temp">78°</div>
-      <div class="wx-info"><strong>Mostly Sunny All Week</strong><br>Water: 75°F · Sunset ~5:50 PM<br>Pack the sunscreen, it's paradise time ☀️</div>
-    </div>
+    
     <div id="day-content"></div>
   </div>
 
@@ -351,6 +348,8 @@
 </div>
 
 <script>
+var WEATHER_DATA = {"2026-01-30": {"high": "25", "low": "18", "feels": "25", "desc": "Sunny", "humidity": "62", "sunset": "05:53 PM"}, "2026-01-31": {"high": "23", "low": "19", "feels": "25", "desc": "Sunny", "humidity": "74", "sunset": "05:54 PM"}, "2026-02-01": {"high": "15", "low": "14", "feels": "11", "desc": "Overcast", "humidity": "83", "sunset": "05:54 PM"}};
+
 var DAYS = [
   { id:'tue3', label:'Tue', date:'Feb 3', name:'Arrival Day! 🛬', special:false, chipClass:'',
     sections: [
@@ -510,7 +509,7 @@ function esc(s){ var d=document.createElement('div'); d.textContent=s||''; retur
 
 function renderDay(day) {
   var el = document.getElementById('day-content');
-  var html = '<div class="section-head"><span class="icon">📍</span><h2>' + esc(day.date) + ' — ' + day.name + '</h2></div>';
+  var html = getWeather(day.date) + '<div class="section-head"><span class="icon">📍</span><h2>' + esc(day.date) + ' — ' + day.name + '</h2></div>';
   day.sections.forEach(function(s) {
     html += '<div class="section-head"><span class="icon">' + s.icon + '</span><h2>' + esc(s.title) + '</h2></div>';
     s.items.forEach(function(item, idx) {
@@ -574,6 +573,26 @@ function shareApp() {
     if (navigator.clipboard) { navigator.clipboard.writeText(u).then(function(){ alert('Link copied! Share it with the family.'); }); }
     else { prompt('Copy this link to share:', u); }
   }
+}
+
+
+function getWeather(dayDate) {
+  // dayDate like "Feb 3" -> need to match to YYYY-MM-DD
+  var monthMap = {Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'};
+  var parts = dayDate.split(' ');
+  var mm = monthMap[parts[0]] || '02';
+  var dd = parts[1].padStart(2,'0');
+  var key = '2026-' + mm + '-' + dd;
+  var w = WEATHER_DATA[key];
+  if (!w) return '<div class="weather"><div class="temp">26°C</div><div class="wx-info"><strong>Mostly Sunny</strong><br>Feels like 30°C+ with humidity<br>Water: 24°C · Trust us, it\'s warm! ☀️</div></div>';
+  var emoji = '☀️';
+  var d = w.desc.toLowerCase();
+  if (d.indexOf('rain')>-1||d.indexOf('shower')>-1) emoji = '🌧️';
+  else if (d.indexOf('cloud')>-1||d.indexOf('overcast')>-1) emoji = '⛅';
+  else if (d.indexOf('thunder')>-1) emoji = '⛈️';
+  else if (d.indexOf('partly')>-1) emoji = '🌤️';
+  var feelsNote = parseInt(w.feels) > parseInt(w.high) ? ' (Humidity makes it feel even warmer!)' : ' with the tropical humidity';
+  return '<div class="weather"><div class="temp">' + w.high + '°C</div><div class="wx-info"><strong>' + emoji + ' ' + w.desc + '</strong><br>High ' + w.high + '°C / Low ' + w.low + '°C · Feels like <strong>' + w.feels + '°C</strong>' + feelsNote + '<br>Water: 24°C · Sunset ' + w.sunset + ' 🌅</div></div>';
 }
 
 renderDay(DAYS[0]);
