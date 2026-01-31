@@ -25,10 +25,7 @@
   .day-chip { flex-shrink: 0; padding: 8px 14px; border-radius: 20px; border: 2px solid #e0e0e0; background: var(--white); font-size: 0.8rem; font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s; -webkit-tap-highlight-color: transparent; min-width: 70px; }
   .day-chip.active { background: var(--ocean); color: var(--white); border-color: var(--ocean); transform: scale(1.05); }
   .day-chip .day-name { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.7; }
-  .day-chip.special { border-color: var(--coral); }
-  .day-chip.special.active { background: var(--coral); border-color: var(--coral); }
-  .day-chip.pats { border-color: var(--pats); }
-  .day-chip.pats.active { background: var(--pats); border-color: var(--pats); }
+  .day-chip .chip-icon { font-size: 0.9rem; margin-top: 2px; line-height: 1; }
   .container { max-width: 500px; margin: 0 auto; padding: 0 12px 100px; }
   .section-head { display: flex; align-items: center; gap: 8px; margin: 20px 0 10px; }
   .section-head .icon { font-size: 1.4rem; }
@@ -440,7 +437,7 @@
 var WEATHER_DATA = {"2026-02-03": {"high": "21", "low": "18", "feels": "22", "desc": "Partly Cloudy", "humidity": "70", "sunset": "05:55 PM", "uv": "7"}, "2026-02-04": {"high": "23", "low": "19", "feels": "24", "desc": "Partly Cloudy", "humidity": "65", "sunset": "05:56 PM", "uv": "8"}, "2026-02-05": {"high": "24", "low": "17", "feels": "25", "desc": "Partly Cloudy", "humidity": "60", "sunset": "05:56 PM", "uv": "8"}, "2026-02-06": {"high": "21", "low": "17", "feels": "22", "desc": "Partly Cloudy", "humidity": "65", "sunset": "05:57 PM", "uv": "7"}, "2026-02-07": {"high": "22", "low": "17", "feels": "23", "desc": "Partly Cloudy", "humidity": "60", "sunset": "05:57 PM", "uv": "8"}, "2026-02-08": {"high": "23", "low": "18", "feels": "24", "desc": "Partly Cloudy", "humidity": "62", "sunset": "05:58 PM", "uv": "8"}, "2026-02-09": {"high": "23", "low": "17", "feels": "24", "desc": "Partly Cloudy", "humidity": "60", "sunset": "05:58 PM", "uv": "8"}, "2026-02-10": {"high": "23", "low": "18", "feels": "24", "desc": "Partly Cloudy", "humidity": "62", "sunset": "05:59 PM", "uv": "7"}};
 
 var DAYS = [
-  { id:'mon2', label:'Mon', date:'Feb 2', name:'PACK NIGHT! 🧳', special:true, chipClass:'special',
+  { id:'mon2', label:'Mon', date:'Feb 2', name:'PACK NIGHT! 🧳', chipIcon:'🧳',
     sections: [
       { title:'Night Before — Get Hyped!', icon:'🧳', items:[
         { time:'EVENING', title:'🧳 Pack Your Bags!', desc:'Tomorrow you fly to PARADISE! Check the 🧳 Pack tab and go through every section. Check it ALL off!', type:'highlight', tags:['Don\'t Forget Anything!'], details:'Passport? ✅ Swimsuits (2!)? ✅ Reef-safe sunscreen? ✅ Waterproof phone case? ✅ Patriots gear? ✅ Dramamine? ✅ Go through the full list!' },
@@ -453,7 +450,7 @@ var DAYS = [
       ]}
     ]
   },
-  { id:'tue3', label:'Tue', date:'Feb 3', name:'Arrival Day! 🛬', special:false, chipClass:'',
+  { id:'tue3', label:'Tue', date:'Feb 3', name:'Arrival Day! 🛬', chipIcon:'🛫',
     sections: [
       { title:'Departure', icon:'✈️', items:[
         { time:'9:05 AM', title:'✈️ Depart Toronto — AC940', desc:'Air Canada AC940 from Pearson (YYZ) → Nassau (NAS). Be at the airport by 6:30-7:00 AM!', type:'highlight', tags:['On Time ✅'], details:'Flight: Air Canada AC940 · Toronto Pearson T1 → Nassau Lynden Pindling · ~4 hrs · Check back here for live status updates!' },
@@ -474,7 +471,7 @@ var DAYS = [
       ]}
     ]
   },
-  { id:'wed4', label:'Wed', date:'Feb 4', name:'Water Park Day 🌊', special:false, chipClass:'',
+  { id:'wed4', label:'Wed', date:'Feb 4', name:'Water Park Day 🌊', chipIcon:'',
     sections: [
       { title:'Morning', icon:'☀️', items:[
         { time:'☕ EARLY', title:'☕ Cove Starbucks Walk', desc:'Beautiful morning walk from Harborside to The Cove. Coffee with infinity pool views.', type:'coffee', tags:['Great Routine'] },
@@ -492,7 +489,7 @@ var DAYS = [
       ]}
     ]
   },
-  { id:'thu5', label:'Thu', date:'Feb 5', name:'ROSE ISLAND PIGS! 🐷', special:true, chipClass:'special',
+  { id:'thu5', label:'Thu', date:'Feb 5', name:'ROSE ISLAND PIGS! 🐷', chipIcon:'🐷',
     sections: [
       { title:'Full Day Adventure', icon:'🐷', items:[
         { time:'10:00 AM', title:'🐷 Rose Island — Swimming with Pigs!', desc:'Boat trip to Rose Island! Swimming with pigs, snorkeling, beach time. Short ride from Paradise Island!', type:'highlight', tags:['All Day', 'Kid Friendly', 'Booked!'], details:'Rose Island is just a quick boat ride from Nassau — way closer than Exuma! Bring: reef-safe sunscreen, waterproof phone case, towels, snacks. This will be the highlight of the trip!' },
@@ -503,7 +500,7 @@ var DAYS = [
       ]}
     ]
   },
-  { id:'fri6', label:'Fri', date:'Feb 6', name:'Beach & Junkanoo 🎭', special:false, chipClass:'',
+  { id:'fri6', label:'Fri', date:'Feb 6', name:'Beach & Junkanoo 🎭', chipIcon:'🏅',
     sections: [
       { title:'Daytime — Choose Your Adventure', icon:'☀️', items:[
         { time:'OPTION A', title:'🏝️ Blue Lagoon Island', desc:'Boat trip! Beach, dolphins, sea lions, hammocks. Great full-day family outing.', type:'fun', tags:['Book Ahead', '$85-250/pp', 'Kid Friendly'] },
@@ -520,7 +517,7 @@ var DAYS = [
       ]}
     ]
   },
-  { id:'sat7', label:'Sat', date:'Feb 7', name:'Shopping & Culture 🛍️', special:false, chipClass:'',
+  { id:'sat7', label:'Sat', date:'Feb 7', name:'Shopping & Culture 🛍️', chipIcon:'',
     sections: [
       { title:'Morning', icon:'☀️', items:[
         { time:'MORNING', title:'🛍️ Bay Street Luxury Shopping', desc:'Downtown Nassau. Gucci, John Bull, Colombian Emeralds (duty-free!). Straw Market for souvenirs with kids.', type:'fun', tags:['Family Friendly'], details:'Take the whole crew or split up — shoppers go to Bay Street, others hit the pool. Meet up for lunch.' },
@@ -540,7 +537,7 @@ var DAYS = [
       ]}
     ]
   },
-  { id:'sun8', label:'Sun', date:'Feb 8', name:'SUPER BOWL! 🏈', special:true, chipClass:'pats',
+  { id:'sun8', label:'Sun', date:'Feb 8', name:'SUPER BOWL! 🏈', chipIcon:'🏈',
     sections: [
       { title:'Game Day Baby!', icon:'🏈', items:[
         { time:'', title:'', desc:'', type:'banner', tags:[], banner:true, bannerEmoji:'🏈🇺🇸', bannerTitle:'SUPER BOWL LX', bannerSub:'LET\'S GO PATS! 🏈 Do Your Job!' },
@@ -558,7 +555,7 @@ var DAYS = [
       ]}
     ]
   },
-  { id:'mon9', label:'Mon', date:'Feb 9', name:'Last Full Day 🌅', special:false, chipClass:'',
+  { id:'mon9', label:'Mon', date:'Feb 9', name:'Last Full Day 🌅', chipIcon:'',
     sections: [
       { title:'Morning', icon:'☀️', items:[
         { time:'☕ EARLY', title:'☕ Last Cove Coffee Walk', desc:'One more morning walk to The Cove Starbucks. Soak it all in.', type:'coffee', tags:['Savour It'] },
@@ -579,7 +576,7 @@ var DAYS = [
       ]}
     ]
   },
-  { id:'tue10', label:'Tue', date:'Feb 10', name:'Home ✈️', special:false, chipClass:'',
+  { id:'tue10', label:'Tue', date:'Feb 10', name:'Home ✈️', chipIcon:'🛬',
     sections: [
       { title:'Morning', icon:'✈️', items:[
         { time:'EARLY', title:'☀️ One Last Sunrise', desc:'Wake up early. Walk the beach one more time. Take it all in. You\'ll be back. 🏝️', type:'family', tags:[] },
@@ -595,10 +592,8 @@ setTimeout(function(){ document.getElementById('splash').classList.add('hide'); 
 var scroll = document.getElementById('dayScroll');
 DAYS.forEach(function(d, i) {
   var chip = document.createElement('div');
-  var cls = 'day-chip' + (i === 0 ? ' active' : '');
-  if (d.chipClass) cls += ' ' + d.chipClass;
-  chip.className = cls;
-  chip.innerHTML = '<span class="day-name">' + d.label + '</span>' + d.date.split(' ')[1];
+  chip.className = 'day-chip' + (i === 0 ? ' active' : '');
+  chip.innerHTML = '<span class="day-name">' + d.label + '</span>' + d.date.split(' ')[1] + (d.chipIcon ? '<span class="chip-icon">' + d.chipIcon + '</span>' : '');
   chip.onclick = function(){ selectDay(i); };
   chip.id = 'chip-' + i;
   scroll.appendChild(chip);
