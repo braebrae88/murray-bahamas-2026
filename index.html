@@ -312,6 +312,51 @@
     <div class="card nightlife"><h3>🎶 Fish Fry After Dark</h3><p>Arawak Cay gets lively at night. Local DJs, dancing, drinks under the stars.</p><div class="tags"><span class="tag night">Local Vibe</span></div></div>
   </div>
 
+  <!-- PACK TAB -->
+  <div class="tab-page" id="tab-pack">
+    <div class="banner" style="background: linear-gradient(135deg, var(--sunset) 0%, var(--coral) 100%);">
+      <div class="big-emoji">🧳✈️</div>
+      <h2>Night Before Checklist</h2>
+      <p>Don't forget ANYTHING! Check it off as you pack 👇</p>
+    </div>
+
+    <div class="section-head"><span class="icon">🛂</span><h2>THE ESSENTIALS (Don't Leave Without!)</h2></div>
+    <div id="checklist-essentials"></div>
+
+    <div class="section-head"><span class="icon">👙</span><h2>Beach & Pool</h2></div>
+    <div id="checklist-beach"></div>
+
+    <div class="section-head"><span class="icon">🤿</span><h2>Excursion Gear</h2></div>
+    <div id="checklist-excursion"></div>
+
+    <div class="section-head"><span class="icon">👗</span><h2>Outfits</h2></div>
+    <div id="checklist-outfits"></div>
+
+    <div class="section-head"><span class="icon">💊</span><h2>Health & Comfort</h2></div>
+    <div id="checklist-health"></div>
+
+    <div class="section-head"><span class="icon">📱</span><h2>Tech & Entertainment</h2></div>
+    <div id="checklist-tech"></div>
+
+    <div class="section-head"><span class="icon">👶</span><h2>For the 6-Year-Old</h2></div>
+    <div id="checklist-kids"></div>
+
+    <div class="section-head"><span class="icon">💡</span><h2>Pro Moves</h2></div>
+    <div id="checklist-pro"></div>
+
+    <div class="section-head"><span class="icon">🛒</span><h2>Buy at Grocery Store (Nassau)</h2></div>
+    <div id="checklist-grocery"></div>
+
+    <div class="section-head"><span class="icon">🥃</span><h2>Buy at Liquor Store (Nassau)</h2></div>
+    <div id="checklist-liquor"></div>
+
+    <div style="text-align:center; margin: 20px 0; padding: 16px; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 16px;">
+      <div style="font-size: 2rem;">🏝️</div>
+      <div style="font-family: 'Fredoka', sans-serif; font-size: 1.1rem; color: var(--palm); margin-top: 4px;">You're going to the BAHAMAS!</div>
+      <div style="font-size: 0.85rem; color: var(--text); margin-top: 4px;">Get some sleep tonight. Paradise is waiting. 🌴</div>
+    </div>
+  </div>
+
   <!-- TIPS TAB -->
   <div class="tab-page" id="tab-tips">
     <div class="section-head"><span class="icon">💡</span><h2>Pro Tips</h2></div>
@@ -344,6 +389,7 @@
   <div class="nav-btn active" onclick="switchNav('schedule')"><div class="nav-icon">📅</div><div class="nav-label">Schedule</div></div>
   <div class="nav-btn" onclick="switchNav('eat')"><div class="nav-icon">🍽️</div><div class="nav-label">Eat</div></div>
   <div class="nav-btn" onclick="switchNav('explore')"><div class="nav-icon">🏄</div><div class="nav-label">Explore</div></div>
+  <div class="nav-btn" onclick="switchNav('pack')"><div class="nav-icon">🧳</div><div class="nav-label">Pack</div></div>
   <div class="nav-btn" onclick="switchNav('tips')"><div class="nav-icon">💡</div><div class="nav-label">Tips</div></div>
 </div>
 
@@ -354,9 +400,10 @@ var DAYS = [
   { id:'tue3', label:'Tue', date:'Feb 3', name:'Arrival Day! 🛬', special:false, chipClass:'',
     sections: [
       { title:'Afternoon', icon:'🌤️', items:[
-        { time:'~1:00 PM', title:'✈️ Welcome to Paradise!', desc:'Land in Nassau, taxi to Atlantis Harborside. The adventure begins!', type:'', tags:[] },
-        { time:'AFTERNOON', title:'🏖️ Settle In & Explore', desc:'Unpack, walk Marina Village, find your pools. Let the first-timers soak it all in.', type:'family', tags:['Kid Friendly'], details:'Check out Marina Village shops, walk to The Cove for a look around. Starbucks at the Marina for a pick-me-up after the flight.' },
-        { time:'AFTERNOON', title:'☕ Coffee Run', desc:'Starbucks at Marina Village or walk to The Cove location. Iced coffee in paradise hits different.', type:'coffee', tags:[] },
+        { time:'~1:00 PM', title:'✈️ Welcome to Paradise!', desc:'Land in Nassau! Sandra\'s Taxi is picking us up at the airport.', type:'highlight', tags:['Arranged!'], details:'Sandra\'s Taxi — confirmed airport pickup. Keep an eye out after baggage claim.' },
+        { time:'FIRST STOP', title:'🛒 Grocery & Liquor Store Run', desc:'Stopping on the way to Harborside to stock up! Breakfast food, snacks, water, drinks, beer, rum, mixers. Check the 🧳 Pack tab for the shopping lists!', type:'food', tags:['Save $$$', 'Don\'t Skip This'], details:'This is KEY with 10 people. Resort prices are brutal. Stock the Harborside kitchen with breakfast stuff, snacks, water, and drinks for the week. Hit the liquor store for beer, wine, rum, and mixers. Grab popcorn for Super Bowl Sunday!' },
+        { time:'AFTERNOON', title:'🏖️ Settle In & Explore', desc:'Unpack, stock the fridge, then walk Marina Village. Let the first-timers soak it all in — it\'s magical the first time!', type:'family', tags:['Kid Friendly'], details:'Check out Marina Village shops, find the pools, walk to The Cove. The first-timers will be in awe. Don\'t rush them — let them take it all in.' },
+        { time:'AFTERNOON', title:'☕ First Coffee in Paradise', desc:'Starbucks at Marina Village. Iced coffee hits different when you\'re looking at turquoise water.', type:'coffee', tags:[] },
       ]},
       { title:'Dinner', icon:'🍽️', items:[
         { time:'DINNER', title:"🍝 Carmine's — Family Style Italian", desc:'Perfect first night for the whole group of 10. Huge portions, everyone shares. The first-timers will love the Atlantis vibe.', type:'food', tags:['No Reservation Needed', 'Kid Friendly'] },
@@ -559,7 +606,7 @@ function switchNav(tab) {
   document.querySelectorAll('.tab-page').forEach(function(p){ p.classList.remove('active'); });
   document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
   document.getElementById('tab-'+tab).classList.add('active');
-  var tabs = ['schedule','eat','explore','tips'];
+  var tabs = ['schedule','eat','explore','pack','tips'];
   var idx = tabs.indexOf(tab);
   if (idx >= 0) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
   window.scrollTo(0,0);
@@ -594,6 +641,133 @@ function getWeather(dayDate) {
   var feelsNote = parseInt(w.feels) > parseInt(w.high) ? ' (Humidity makes it feel even warmer!)' : ' with the tropical humidity';
   return '<div class="weather"><div class="temp">' + w.high + '°C</div><div class="wx-info"><strong>' + emoji + ' ' + w.desc + '</strong><br>High ' + w.high + '°C / Low ' + w.low + '°C · Feels like <strong>' + w.feels + '°C</strong>' + feelsNote + '<br>Water: 24°C · Sunset ' + w.sunset + ' 🌅</div></div>';
 }
+
+// PACKING CHECKLIST
+var CHECKLISTS = {
+  essentials: [
+    ['🛂','Passport (check expiry!)'],
+    ['💳','Credit/debit cards'],
+    ['💵','Some USD cash (tips, taxis)'],
+    ['📱','Phone + charger'],
+    ['🎫','Flight confirmation (AC940)'],
+    ['🚕','Sandra\'s Taxi number'],
+    ['🏨','Harborside reservation details'],
+    ['💼','Travel insurance docs'],
+    ['🔑','House keys (for when you get back!)'],
+  ],
+  beach: [
+    ['👙','Swimsuits (pack at least 2 — things don\'t dry overnight!)'],
+    ['🩴','Flip flops / sandals'],
+    ['🕶️','Sunglasses'],
+    ['🧢','Hat / sun hat'],
+    ['🧴','Reef-safe sunscreen (SPF 50+ — BUY BEFORE YOU GO, it\'s $$$$ there)'],
+    ['🏖️','Beach towel or sarong (resort has towels but just in case)'],
+    ['👓','Prescription sunglasses if you wear them'],
+    ['🩱','Cover-up / beach dress'],
+  ],
+  excursion: [
+    ['📱','Waterproof phone case (MUST HAVE for pigs + snorkeling!)'],
+    ['🤿','Snorkel mask (optional — usually provided)'],
+    ['👟','Water shoes (rocky areas, especially for kids)'],
+    ['🎒','Dry bag for the boat trip'],
+    ['📸','GoPro / waterproof camera if you have one'],
+  ],
+  outfits: [
+    ['👗','Nice dinner outfits (Café Matisse, Nobu, Sapodilla)'],
+    ['👔','Smart casual for Marina Village evenings'],
+    ['🏈','PATRIOTS GEAR for Super Bowl Sunday! 🇺🇸'],
+    ['💃','Going-out outfit for nightlife/casino'],
+    ['🧥','Light jacket or hoodie (evenings can be breezy ~20°C)'],
+    ['👟','Comfortable walking shoes for Nassau exploring'],
+  ],
+  health: [
+    ['💊','Dramamine / motion sickness meds (Exuma boat trip!)'],
+    ['💊','Any prescription medications'],
+    ['🩹','Basic first aid (band-aids, Advil, Pepto)'],
+    ['🦟','Bug spray (just in case for evenings)'],
+    ['💧','Reusable water bottle'],
+    ['😴','Melatonin if you need it for sleep'],
+    ['🧴','After-sun / aloe vera (you WILL get sun)'],
+  ],
+  tech: [
+    ['🔌','Phone chargers (bring 2!)'],
+    ['🔋','Portable battery pack'],
+    ['📱','Download Atlantis app before you go'],
+    ['🎧','Headphones / AirPods for the flight'],
+    ['📚','Book / Kindle for beach reading'],
+    ['🔌','Power adapter (Bahamas uses same plugs as Canada/US — you\'re good!)'],
+  ],
+  kids: [
+    ['🧸','Comfort toy / blankie for the flight'],
+    ['🎮','iPad / tablet loaded with games & movies'],
+    ['🎧','Kids headphones'],
+    ['🍿','Flight snacks'],
+    ['👟','Water shoes (must-have for rocky beaches)'],
+    ['🧴','Kids sunscreen (sensitive skin formula)'],
+    ['🩱','Multiple swimsuits (they\'ll live in the water)'],
+    ['🎨','Coloring book / activity book for downtime'],
+    ['💊','Children\'s Dramamine for the Exuma boat ride'],
+  ],
+  pro: [
+    ['🤐','Ziploc bags (phones, cash, keeping sand out of stuff)'],
+    ['🧊','Insulated tumbler / yeti (for poolside drinks)'],
+    ['📎','Lanyard for room key (hands-free at the water park)'],
+    ['🛒','Reusable shopping bags (for the grocery store stop)'],
+    ['🍳','Spices / seasonings if you plan to cook at Harborside'],
+    ['🧻','Travel tissues (just trust me)'],
+    ['✈️','Neck pillow for the flight'],
+    ['🎵','Bluetooth speaker for the room / pool'],
+  ],
+  grocery: [
+    ['🥐','Breakfast stuff (cereal, milk, bread, eggs, fruit)'],
+    ['🧃','Juice boxes / drinks for the kids'],
+    ['💧','Cases of water (SO much cheaper than resort)'],
+    ['🍌','Fruit & snacks for the room'],
+    ['🧀','Sandwich stuff for quick lunches'],
+    ['☕','Coffee pods if Harborside has a Keurig'],
+    ['🍿','Popcorn & snacks for Super Bowl Sunday!'],
+    ['🧴','Sunscreen if you forgot'],
+  ],
+  liquor: [
+    ['🍺','Beer (cases for the week — resort prices are insane)'],
+    ['🍷','Wine'],
+    ['🥃','Rum (when in the Bahamas!)'],
+    ['🍹','Mixers (juice, tonic, soda)'],
+    ['🧊','Bag of ice'],
+    ['🥂','Prosecco or champagne for the first night toast! 🎉'],
+  ]
+};
+
+function renderChecklist(containerId, items) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem('pack_checks') || '{}'); } catch(e){}
+  var html = '';
+  items.forEach(function(item, i) {
+    var key = containerId + '-' + i;
+    var checked = saved[key] ? true : false;
+    html += '<div class="card' + (checked ? ' family' : '') + '" style="padding:12px;display:flex;align-items:center;gap:12px;border-left-color:' + (checked ? 'var(--palm)' : '#ddd') + ';cursor:pointer;" onclick="toggleCheck(\'' + key + '\',this)">';
+    html += '<div style="font-size:1.5rem;min-width:30px;text-align:center;">' + (checked ? '✅' : item[0]) + '</div>';
+    html += '<div style="font-size:0.9rem;' + (checked ? 'text-decoration:line-through;color:#aaa;' : '') + '">' + item[1] + '</div>';
+    html += '</div>';
+  });
+  el.innerHTML = html;
+}
+
+function toggleCheck(key, el) {
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem('pack_checks') || '{}'); } catch(e){}
+  if (saved[key]) { delete saved[key]; } else { saved[key] = true; }
+  localStorage.setItem('pack_checks', JSON.stringify(saved));
+  // Re-render the parent section
+  var containerId = key.split('-').slice(0,-1).join('-');
+  var section = key.substring(0, key.lastIndexOf('-'));
+  // Just re-render all checklists for simplicity
+  Object.keys(CHECKLISTS).forEach(function(k) { renderChecklist('checklist-' + k, CHECKLISTS[k]); });
+}
+
+Object.keys(CHECKLISTS).forEach(function(k) { renderChecklist('checklist-' + k, CHECKLISTS[k]); });
 
 renderDay(DAYS[0]);
 </script>
