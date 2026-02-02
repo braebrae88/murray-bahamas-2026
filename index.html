@@ -119,8 +119,10 @@
   .splash .cloud2 { top: 80px; font-size: 1.5rem; left: 65%; opacity: 0.2; }
   .divider { text-align: center; color: #ccc; margin: 16px 0 8px; font-size: 0.75rem; letter-spacing: 2px; }
   /* What's New Popup */
-  .whats-new-btn { position: fixed; top: 12px; right: 12px; z-index: 15; background: linear-gradient(135deg, var(--sand) 0%, var(--sunset) 100%); border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 1.2rem; cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.2); animation: bellPulse 2s ease-in-out 3s 3; }
-  @keyframes bellPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+  .whats-new-btn { position: fixed; top: 10px; right: 10px; z-index: 15; background: linear-gradient(135deg, var(--sand) 0%, var(--sunset) 100%); border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 0.85rem; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: transform 0.2s; }
+  .whats-new-btn:active { transform: scale(0.9); }
+  .whats-new-btn.has-update { animation: bellPulse 1.5s ease-in-out infinite; }
+  @keyframes bellPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); box-shadow: 0 2px 12px rgba(255,107,53,0.5); } }
   .whats-new-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
   .whats-new-overlay.show { opacity: 1; pointer-events: auto; }
   .whats-new-modal { background: var(--white); border-radius: 20px; max-width: 360px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s; }
@@ -129,7 +131,8 @@
   .whats-new-header h2 { font-family: 'Fredoka', sans-serif; color: var(--white); font-size: 1.2rem; }
   .whats-new-header p { color: rgba(255,255,255,0.85); font-size: 0.8rem; margin-top: 4px; }
   .whats-new-body { padding: 16px; }
-  .whats-new-item { padding: 12px; border-left: 3px solid var(--palm); margin-bottom: 10px; background: #f0faf6; border-radius: 0 10px 10px 0; }
+  .whats-new-item { padding: 12px; border-left: 3px solid var(--palm); margin-bottom: 10px; background: #f0faf6; border-radius: 0 10px 10px 0; transition: background 0.15s; }
+  .whats-new-item:active { background: #d4f0e7; }
   .whats-new-item .wn-date { font-size: 0.7rem; color: var(--ocean); font-weight: 600; text-transform: uppercase; }
   .whats-new-item .wn-text { font-size: 0.85rem; color: var(--text); margin-top: 4px; line-height: 1.4; }
   .whats-new-close { display: block; width: 100%; padding: 14px; border: none; background: linear-gradient(135deg, var(--ocean) 0%, var(--palm) 100%); color: var(--white); font-family: 'Fredoka', sans-serif; font-size: 1rem; cursor: pointer; border-radius: 0 0 20px 20px; }
@@ -1008,36 +1011,56 @@ Object.keys(CHECKLISTS).forEach(function(k) { renderChecklist('checklist-' + k, 
 
 // What's New system
 var WHATS_NEW = [
-  { date: 'Feb 2', text: '✈️ REMINDER: Check in to your flight NOW! Air Canada AC940, YYZ → NAS, departing 9:05 AM tomorrow. Online check-in: aircanada.com — don\'t forget to grab your seats! 🪂' },
-  { date: 'Feb 2', text: '🎭 Added Junkanoo Fest nights (Tue & Fri at 9pm at Marina Village) to the schedule!' },
-  { date: 'Feb 2', text: '🦩 Added Flamingo Brunch at Poseidon\'s Table on Super Bowl Sunday!' },
-  { date: 'Feb 2', text: '💆 Added IGK Pop-Up wellness event (Feb 3-5) to Arrival Day!' },
-  { date: 'Feb 2', text: '🏝️ Added 3 Islands Tour (swimming pigs, turtles, snorkeling) to Explore tab!' },
-  { date: 'Feb 2', text: '🧘 Added Full Moon Yoga at Baha Mar (Feb 4) to Wednesday\'s schedule!' },
-  { date: 'Feb 2', text: '🔔 New "What\'s New" button — you\'ll see updates whenever Mira adds something fresh!' }
+  { date: 'Feb 2', text: '✈️ REMINDER: Check in to your flight NOW! Air Canada AC940, YYZ → NAS, departing 9:05 AM tomorrow. Online check-in: aircanada.com — don\'t forget to grab your seats! ✅', nav: {tab:'schedule', day:1} },
+  { date: 'Feb 2', text: '🎭 Junkanoo Fest nights — Tue & Fri at 9pm at Marina Village!', nav: {tab:'schedule', day:1} },
+  { date: 'Feb 2', text: '🦩 Flamingo Brunch at Poseidon\'s Table on Super Bowl Sunday!', nav: {tab:'schedule', day:6} },
+  { date: 'Feb 2', text: '💆 IGK Pop-Up wellness event (Feb 3-5) on Arrival Day!', nav: {tab:'schedule', day:1} },
+  { date: 'Feb 2', text: '🏝️ 3 Islands Tour — speedboat + pigs + turtles + snorkeling!', nav: {tab:'explore'} },
+  { date: 'Feb 2', text: '🧘 Full Moon Yoga at Baha Mar (Feb 4) — Wednesday schedule!', nav: {tab:'schedule', day:2} },
+  { date: 'Feb 2', text: '🔔 New "What\'s New" button — tap items to jump to them!' }
 ];
 
 function showWhatsNew() {
   var body = document.getElementById('whatsNewBody');
   var html = '';
-  WHATS_NEW.forEach(function(item) {
-    html += '<div class="whats-new-item"><div class="wn-date">' + item.date + '</div><div class="wn-text">' + item.text + '</div></div>';
+  WHATS_NEW.forEach(function(item, i) {
+    var clickable = item.nav ? ' style="cursor:pointer;" onclick="goToUpdate('+i+')"' : '';
+    var arrow = item.nav ? ' <span style="float:right;opacity:0.4;">→</span>' : '';
+    html += '<div class="whats-new-item"'+clickable+'><div class="wn-date">' + item.date + '</div><div class="wn-text">' + item.text + arrow + '</div></div>';
   });
   body.innerHTML = html;
   document.getElementById('whatsNewOverlay').classList.add('show');
 }
 
+function goToUpdate(idx) {
+  var item = WHATS_NEW[idx];
+  if (!item || !item.nav) return;
+  dismissWhatsNew();
+  if (item.nav.tab === 'schedule' && typeof item.nav.day === 'number') {
+    selectDay(item.nav.day);
+  } else if (item.nav.tab) {
+    switchNav(item.nav.tab);
+  }
+}
+
 function dismissWhatsNew() {
   document.getElementById('whatsNewOverlay').classList.remove('show');
   try { localStorage.setItem('whats_new_seen', WHATS_NEW.length.toString()); } catch(e){}
+  document.querySelector('.whats-new-btn').classList.remove('has-update');
 }
 
-// Auto-show on load if there are new items
+// Auto-show on load if there are new items + pulse bell
 setTimeout(function() {
   try {
     var seen = parseInt(localStorage.getItem('whats_new_seen') || '0');
-    if (seen < WHATS_NEW.length) { showWhatsNew(); }
-  } catch(e) { showWhatsNew(); }
+    if (seen < WHATS_NEW.length) {
+      document.querySelector('.whats-new-btn').classList.add('has-update');
+      showWhatsNew();
+    }
+  } catch(e) {
+    document.querySelector('.whats-new-btn').classList.add('has-update');
+    showWhatsNew();
+  }
 }, 4500); // After splash screen
 
 renderDay(DAYS[0]);
