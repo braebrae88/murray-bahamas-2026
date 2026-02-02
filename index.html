@@ -118,6 +118,21 @@
   .splash .cloud1 { top: 50px; left: 15%; }
   .splash .cloud2 { top: 80px; font-size: 1.5rem; left: 65%; opacity: 0.2; }
   .divider { text-align: center; color: #ccc; margin: 16px 0 8px; font-size: 0.75rem; letter-spacing: 2px; }
+  /* What's New Popup */
+  .whats-new-btn { position: fixed; top: 12px; right: 12px; z-index: 15; background: linear-gradient(135deg, var(--sand) 0%, var(--sunset) 100%); border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 1.2rem; cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.2); animation: bellPulse 2s ease-in-out 3s 3; }
+  @keyframes bellPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+  .whats-new-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .whats-new-overlay.show { opacity: 1; pointer-events: auto; }
+  .whats-new-modal { background: var(--white); border-radius: 20px; max-width: 360px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s; }
+  .whats-new-overlay.show .whats-new-modal { transform: translateY(0); }
+  .whats-new-header { background: linear-gradient(135deg, var(--ocean) 0%, var(--palm) 100%); padding: 20px; border-radius: 20px 20px 0 0; text-align: center; }
+  .whats-new-header h2 { font-family: 'Fredoka', sans-serif; color: var(--white); font-size: 1.2rem; }
+  .whats-new-header p { color: rgba(255,255,255,0.85); font-size: 0.8rem; margin-top: 4px; }
+  .whats-new-body { padding: 16px; }
+  .whats-new-item { padding: 12px; border-left: 3px solid var(--palm); margin-bottom: 10px; background: #f0faf6; border-radius: 0 10px 10px 0; }
+  .whats-new-item .wn-date { font-size: 0.7rem; color: var(--ocean); font-weight: 600; text-transform: uppercase; }
+  .whats-new-item .wn-text { font-size: 0.85rem; color: var(--text); margin-top: 4px; line-height: 1.4; }
+  .whats-new-close { display: block; width: 100%; padding: 14px; border: none; background: linear-gradient(135deg, var(--ocean) 0%, var(--palm) 100%); color: var(--white); font-family: 'Fredoka', sans-serif; font-size: 1rem; cursor: pointer; border-radius: 0 0 20px 20px; }
 </style>
 </head>
 <body>
@@ -147,6 +162,18 @@
   <div class="swim-pig">🐷<div class="pig-splash">💦</div></div>
   <div class="dolphin">🐬</div>
   <div class="dolphin2">🐬</div>
+</div>
+
+<button class="whats-new-btn" onclick="showWhatsNew()" title="What's New">🔔</button>
+<div class="whats-new-overlay" id="whatsNewOverlay" onclick="if(event.target===this)dismissWhatsNew()">
+  <div class="whats-new-modal">
+    <div class="whats-new-header">
+      <h2>🌴 What's New!</h2>
+      <p>Latest updates to your trip guide</p>
+    </div>
+    <div class="whats-new-body" id="whatsNewBody"></div>
+    <button class="whats-new-close" onclick="dismissWhatsNew()">Got It! 🤙</button>
+  </div>
 </div>
 
 <div class="hero">
@@ -473,10 +500,16 @@
   <!-- EXPLORE TAB -->
   <div class="tab-page" id="tab-explore">
     <div class="section-head"><span class="icon">🎯</span><h2>Excursions</h2></div>
+<<<<<<< HEAD
     <div class="card fun"><h3>🐷 Swimming with Pigs — Rose Island</h3><p>Boat trip to Rose Island! Pigs, snorkeling, beach time. Short ride from Paradise Island!</p><div class="tags"><span class="tag hot">Booked Thu Feb 5!</span><span class="tag kid">Kid Friendly</span></div></div>
+=======
+    <div class="card fun"><h3>🐷 Swimming with Pigs — Exuma</h3><p>Full-day powerboat trip. Pigs, nurse sharks, iguanas, snorkeling!</p><div class="tags"><span class="tag hot">Booked Thu Feb 5!</span><span class="tag kid">Kid Friendly</span></div></div>
+    <div class="card fun"><h3>🏝️ 3 Islands Tour — Speedboat Adventure</h3><p>Speedboat to 3 islands! Snorkeling, swimming pigs, sea turtles, plus lunch included. Book any day.</p><div class="tags"><span class="tag hot">Must Do!</span><span class="tag kid">Kid Friendly</span><span class="tag new">New Find!</span></div></div>
+>>>>>>> 0b5a095 (Add What's New popup + events (Junkanoo, Flamingo Brunch, 3 Islands Tour, Full Moon Yoga, IGK Pop-Up))
     <div class="card fun"><h3>🐬 Dolphin Cay at Atlantis</h3><p>Shallow water (great for kids) or deep water swim. Sea lions too!</p><div class="tags"><span class="tag book">Book ahead · $175-275/pp</span><span class="tag kid">Kid Friendly</span></div></div>
     <div class="card fun"><h3>🏝️ Blue Lagoon Island</h3><p>Boat from Paradise Island. Beach, dolphins, sea lions, hammocks.</p><div class="tags"><span class="tag book">$85-250/pp</span><span class="tag kid">Kid Friendly</span></div></div>
     <div class="card fun"><h3>🤿 Snorkeling — Stuart Cove's</h3><p>Reef snorkeling, shark dive, glass bottom boat. Rose Island trips.</p><div class="tags"><span class="tag">$70-150/pp</span><span class="tag kid">Kid Friendly</span></div></div>
+    <div class="card fun"><h3>🏝️ 3 Islands Tour</h3><p>Speedboat adventure — snorkeling, swimming pigs, sea turtles, iguanas + lunch on a private island!</p><div class="tags"><span class="tag book">Book Ahead</span><span class="tag kid">Kid Friendly</span><span class="tag new">New Find!</span></div></div>
     <div class="card fun"><h3>🚤 Jet Ski & Parasailing</h3><p>Book through resort. Jet ski tours $130-180, parasailing $100-120.</p><div class="tags"><span class="tag">Adults & Teens</span></div></div>
 
     <div class="section-head"><span class="icon">🏖️</span><h2>At Atlantis (Daily)</h2></div>
@@ -609,6 +642,7 @@ var DAYS = [
         { time:'FIRST STOP', title:'🛒 Grocery & Liquor Store Run', desc:'Stopping on the way to Harborside to stock up! Breakfast food, snacks, water, drinks, beer, rum, mixers. Check the 🧳 Pack tab for the shopping lists!', type:'food', tags:['Save $$$', 'Don\'t Skip This'], details:'This is KEY with 10 people. Resort prices are brutal. Stock the Harborside kitchen with breakfast stuff, snacks, water, and drinks for the week. Hit the liquor store for beer, wine, rum, and mixers. Grab popcorn for Super Bowl Sunday!' },
         { time:'AFTERNOON', title:'🏖️ Settle In & Explore', desc:'Unpack, stock the fridge, then walk Marina Village. Let the first-timers soak it all in — it\'s magical the first time!', type:'family', tags:['Kid Friendly'], details:'Check out Marina Village shops, find the pools, walk to The Cove. The first-timers will be in awe. Don\'t rush them — let them take it all in.' },
         { time:'AFTERNOON', title:'☕ First Coffee in Paradise', desc:'Starbucks at Marina Village. Iced coffee hits different when you\'re looking at turquoise water.', type:'coffee', tags:[] },
+        { time:'FEB 3-5', title:'💆 IGK Pop-Up at Wellness Nassau', desc:'Wellness pop-up event running Feb 3-5. Treatments, self-care, good vibes to start the trip!', type:'fun', tags:['New!', 'Limited Time'], details:'IGK Pop-Up at Wellness Nassau. Running Monday Feb 3 through Wednesday Feb 5. A great way to decompress after travelling.' },
       ]},
       { title:'Dinner', icon:'🍽️', items:[
         { time:'DINNER', title:'🍕 Marina Pizzeria', desc:'Quick, easy, and the kids will love it. Perfect first night after a long travel day. Keep it simple!', type:'food', tags:['Kid Friendly', 'Quick', 'Marina Village'] },
@@ -627,11 +661,19 @@ var DAYS = [
         { time:'9:00 AM', title:'🌊 Aquaventure — GO EARLY!', desc:'Hit it at opening — no lines! Slides, The Current lazy river, Splashers for the kids.', type:'fun', tags:['Kid Friendly', 'Pro Tip: Go at 9!'], details:'Leap of Faith — 60-foot near-vertical slide through a shark tank (brave adults!). The Current — mile-long river with waves and rapids. Splashers — zero-entry kids zone. Gets packed by 11 AM so start early!' },
       ]},
       { title:'Afternoon', icon:'🌤️', items:[
+<<<<<<< HEAD
         { time:'AFTERNOON', title:'🐬 Dolphin Cay', desc:'Dolphin encounters! Shallow water perfect for the kids, deep swim for adults. Sea lions too!', type:'fun', tags:['Book Ahead!', '$175-275/pp'], details:'Book ASAP — these sell out. Shallow interaction is waist-deep, great photos with dolphins. Sea lion encounters are more affordable and just as fun for kids.' },
+=======
+        { time:'MORNING', title:'🧘 Full Moon Yoga at Baha Mar', desc:'Special full moon yoga session at the stunning Baha Mar resort. Zen start to the day!', type:'fun', tags:['New!', 'Wellness', 'Special Event'], details:'Full Moon Yoga at Baha Mar. A unique wellness experience — yoga under the full moon energy at one of the most beautiful resorts in the Bahamas. Great for adults.' },
+        { time:'AFTERNOON', title:'🐬 Dolphin Cay', desc:'Dolphin encounters! Shallow water perfect for the 6-year-old, deep swim for adults. Sea lions too!', type:'fun', tags:['Book Ahead!', '$175-275/pp'], details:'Book ASAP — these sell out. Shallow interaction is waist-deep, great photos with dolphins. Sea lion encounters are more affordable and just as fun for kids.' },
+>>>>>>> 0b5a095 (Add What's New popup + events (Junkanoo, Flamingo Brunch, 3 Islands Tour, Full Moon Yoga, IGK Pop-Up))
         { time:'AFTERNOON', title:'🦈 The Dig', desc:'Walk-through marine habitat. 50,000+ animals. Sharks, rays, jellyfish. FREE for guests!', type:'family', tags:['Free', 'Kid Friendly'] },
       ]},
       { title:'Dinner', icon:'🍽️', items:[
         { time:'7:00 PM', title:'🇮🇹 Café Matisse (Downtown Nassau)', desc:'THE best restaurant in Nassau. French-Italian in a gorgeous colonial house near the Gucci store. BOOK NOW.', type:'food', tags:['Reserve!', 'High-End', 'Sean\'s Pick'], details:'Call +1 (242) 356-7012 or email info@cafematisse.rest. Bank Lane, downtown Nassau. Taxi ~$10-15. Maybe adults only for this one?' },
+      ]},
+      { title:'Evening', icon:'🌅', items:[
+        { time:'SUNSET', title:'🧘 Full Moon Yoga at Baha Mar', desc:'Free full moon yoga session on the beach! Beautiful way to unwind after the water park.', type:'fun', tags:['Free', 'New!', 'Feb 4 Only'], details:'Full Moon Yoga hosted at Baha Mar resort. Take a taxi to Cable Beach (~$15). Magical setting — yoga on the sand as the full moon rises. Check with Baha Mar for exact time.' },
       ]},
       { title:'Late Night', icon:'🌙', items:[
         { time:'LATE', title:'🎰 Casino Night #1', desc:'Table games, slots, poker room. 85,000 sq ft of fun. Drinks flow freely when you\'re playing.', type:'nightlife', tags:['Adults'] },
@@ -657,6 +699,7 @@ var DAYS = [
       { title:'Daytime — Choose Your Adventure', icon:'☀️', items:[
         { time:'OPTION A', title:'🏝️ Blue Lagoon Island', desc:'Boat trip! Beach, dolphins, sea lions, hammocks. Great full-day family outing.', type:'fun', tags:['Book Ahead', '$85-250/pp', 'Kid Friendly'] },
         { time:'OPTION B', title:'🏖️ Beach & Pool Chill Day', desc:'Recover from yesterday! Five miles of beaches, 11 pools. Everyone pick their favourite spot.', type:'family', tags:['Free', 'Relaxed'] },
+        { time:'1:00 PM', title:'🦩 Flamingo Brunch at Poseidon\'s Table', desc:'Pink flamingo-themed brunch buffet! Fun for the whole crew. 1 PM - 3:30 PM.', type:'food', tags:['New!', 'Kid Friendly', 'Fun!'], details:'Poseidon\'s Table. Vibrant flamingo-themed brunch. Great photo ops. Also available on Sunday if you prefer to do it Super Bowl day instead.' },
         { time:'FOR SISTER', title:'🏖️ Cable Beach & Baha Mar Visit', desc:'Your sister wants to see Cable Beach and the new hotel! Baha Mar is stunning — Grand Hyatt, Rosewood, SLS. Beautiful beach, shopping, restaurants.', type:'fun', tags:['New!', 'Sister\'s Pick'], details:'Taxi to Cable Beach ~$15-20. Walk around the massive Baha Mar complex, check out the flamingo habitat, grab lunch at one of the restaurants. The beach is gorgeous.' },
       ]},
       { title:'Dinner', icon:'🍽️', items:[
@@ -976,7 +1019,68 @@ function toggleCheck(key, el) {
 
 Object.keys(CHECKLISTS).forEach(function(k) { renderChecklist('checklist-' + k, CHECKLISTS[k]); });
 
+// What's New system
+var WHATS_NEW = [
+  { date: 'Feb 2', text: '🎭 Added Junkanoo Fest nights (Tue & Fri at 9pm at Marina Village) to the schedule!' },
+  { date: 'Feb 2', text: '🦩 Added Flamingo Brunch at Poseidon\'s Table on Super Bowl Sunday!' },
+  { date: 'Feb 2', text: '💆 Added IGK Pop-Up wellness event (Feb 3-5) to Arrival Day!' },
+  { date: 'Feb 2', text: '🏝️ Added 3 Islands Tour (swimming pigs, turtles, snorkeling) to Explore tab!' },
+  { date: 'Feb 2', text: '🧘 Added Full Moon Yoga at Baha Mar (Feb 4) to Wednesday\'s schedule!' },
+  { date: 'Feb 2', text: '🔔 New "What\'s New" button — you\'ll see updates whenever Mira adds something fresh!' }
+];
+
+function showWhatsNew() {
+  var body = document.getElementById('whatsNewBody');
+  var html = '';
+  WHATS_NEW.forEach(function(item) {
+    html += '<div class="whats-new-item"><div class="wn-date">' + item.date + '</div><div class="wn-text">' + item.text + '</div></div>';
+  });
+  body.innerHTML = html;
+  document.getElementById('whatsNewOverlay').classList.add('show');
+}
+
+function dismissWhatsNew() {
+  document.getElementById('whatsNewOverlay').classList.remove('show');
+  try { localStorage.setItem('whats_new_seen', WHATS_NEW.length.toString()); } catch(e){}
+}
+
+// Auto-show on load if there are new items
+setTimeout(function() {
+  try {
+    var seen = parseInt(localStorage.getItem('whats_new_seen') || '0');
+    if (seen < WHATS_NEW.length) { showWhatsNew(); }
+  } catch(e) { showWhatsNew(); }
+}, 4500); // After splash screen
+
 renderDay(DAYS[0]);
+
+// What's New System
+var WHATS_NEW = [
+  { date: "Feb 2", text: "🎭 Added Junkanoo Fest times (Tue & Fri at 9 PM), 🦩 Flamingo Brunch at Poseidon's Table, 🏝️ 3 Islands Tour (speedboat + pigs + turtles!), 💆 IGK Pop-Up wellness event (Feb 3-5), and 🧘 Full Moon Yoga at Baha Mar!" },
+  { date: "Jan 30", text: "🚀 App launched! Full itinerary, restaurant guide, packing checklist, and pro tips for the Murray Family Bahamas 2026 trip." }
+];
+var WN_VERSION = 'wn-v' + WHATS_NEW.length;
+function renderWhatsNew() {
+  var html = '';
+  WHATS_NEW.forEach(function(item) {
+    html += '<div class="whats-new-item"><div class="wn-date">' + item.date + '</div><div class="wn-text">' + item.text + '</div></div>';
+  });
+  document.getElementById('whatsNewBody').innerHTML = html;
+}
+function showWhatsNew() {
+  renderWhatsNew();
+  document.getElementById('whatsNewOverlay').classList.add('show');
+}
+function dismissWhatsNew() {
+  document.getElementById('whatsNewOverlay').classList.remove('show');
+  try { localStorage.setItem('whatsNewSeen', WN_VERSION); } catch(e){}
+}
+// Auto-show on first load per version
+setTimeout(function() {
+  try {
+    if (localStorage.getItem('whatsNewSeen') !== WN_VERSION) { showWhatsNew(); }
+  } catch(e) { showWhatsNew(); }
+}, 4500);
 </script>
 </body>
 </html>
