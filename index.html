@@ -667,7 +667,8 @@ var DAYS = [
       { title:'Dinner', icon:'🍽️', items:[
         { time:'7:00 PM', title:'🇮🇹 Café Matisse (Downtown Nassau)', desc:'THE best restaurant in Nassau. French-Italian in a gorgeous colonial house. Sean & Reginia\'s kind of spot.', type:'food', tags:['Reserve!', 'High-End', 'Sean & Reginia\'s Pick'], details:'Call +1 (242) 356-7012 or email info@cafematisse.rest. Bank Lane, downtown Nassau. Taxi ~$10-15. Perfect date night for Sean & Reginia — or bring the whole crew if you want to share the magic.' },
       ]},
-      { title:'Late Night', icon:'🌙', items:[
+      { title:'Evening', icon:'🌙', items:[
+        { time:'9:00 PM', title:'🥁 Junkanoo Fest at Marina Village!', desc:'Authentic Bahamian cultural experience! Live drumming, dancing, colorful costumes. The whole family will love this — especially Nanny and the first-timers!', type:'highlight', tags:['New!', 'Free', 'Family Event', 'Don\'t Miss!'], details:'Junkanoo is THE Bahamian cultural tradition — like Carnival! Happens every Tuesday and Friday night at Marina Village. Immersive drumming, dancing, elaborate costumes. Great photos. Braden and Leilani will be mesmerized.' },
         { time:'LATE', title:'🎰 Casino Night #1', desc:'Table games, slots, poker room. 85,000 sq ft of fun. Drinks flow freely when you\'re playing.', type:'nightlife', tags:['Adults'] },
       ]}
     ]
@@ -718,7 +719,8 @@ var DAYS = [
         { time:'DINNER', title:'🐟 Kyma Seafood Grill', desc:'Greek-Bahamian seafood. Off the tourist trail. Locals love this place.', type:'food', tags:['$$', 'Local'] },
         { time:'OR', title:'🍹 Margaritaville', desc:'Fun, loud, touristy — but Tracey and the girls will love it! Good vibes for the group.', type:'food', tags:['Fun', 'Kid Friendly', 'First-Timer Friendly'] },
       ]},
-      { title:'Late Night', icon:'🌙', items:[
+      { title:'Evening & Late Night', icon:'🌙', items:[
+        { time:'9:00 PM', title:'🥁 Junkanoo Fest Returns!', desc:'Friday night Junkanoo at Marina Village! If you missed Tuesday — here\'s your chance. Even if you didn\'t, go again — it\'s that good.', type:'highlight', tags:['New!', 'Free', 'Family Event'], details:'Second Junkanoo night of the week! Perfect timing after dinner — grab drinks and enjoy the show. Great way to end the evening before the adults hit the clubs.' },
         { time:'LATE', title:'🌅 Sunset Beach Club', desc:'Local favourite for dancing! Ocean views, great DJ, drinks. THIS is where Nassau goes out.', type:'nightlife', tags:['Adults', 'Dancing', 'Local Vibe'] },
         { time:'OR', title:'🎷 Jazz Club at Baha Mar', desc:'More chill? Intimate jazz, cocktails. Perfect Sean & Reginia date night.', type:'nightlife', tags:['Adults', 'New!', 'Date Night'] },
       ]}
@@ -1013,6 +1015,7 @@ Object.keys(CHECKLISTS).forEach(function(k) { renderChecklist('checklist-' + k, 
 
 // What's New system
 var WHATS_NEW = [
+  { date: 'Feb 4', text: '🥁 JUNKANOO FEST added! Authentic Bahamian cultural show — drums, dancing, costumes — TONIGHT at 9 PM in Marina Village! Also Friday. Don\'t miss it!', nav: {tab:'schedule', day:2} },
   { date: 'Feb 2', text: '✈️ REMINDER: Check in to your flight NOW! Air Canada AC940, YYZ → NAS, departing 9:05 AM tomorrow. Online check-in: aircanada.com — don\'t forget to grab your seats! ✅', nav: {tab:'schedule', day:1} },
   { date: 'Feb 2', text: '🍽️ Sunday Brunch at Poseidon\'s Table added — lavish buffet, perfect pre-game on Super Bowl Sunday!', nav: {tab:'schedule', day:6} },
   { date: 'Feb 2', text: '🏝️ 3 Islands Tour added — speedboat to swimming pigs, sea turtles & snorkeling with lunch! ~$175/pp, bookable any day.', nav: {tab:'explore'} },
